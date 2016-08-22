@@ -1,0 +1,10 @@
+.bg-inventory {
+  background-color: #FAFAFA !important;
+}
+.navbar-inventory {
+	background-color: white;
+	border-color: rgba(34, 34, 34, 0.05);
+}
+.navbar-inventory-brand {
+	color: #2196F3 !important;
+}
