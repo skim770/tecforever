@@ -1,9 +1,18 @@
 var fileInputTextDiv = document.getElementById('file_input_text_div');
 var fileInput = document.getElementById('file_input_file');
 var fileInputText = document.getElementById('file_input_text');
+var confirmBtn = document.getElementById('confirm-btn');
+var cancelBtn = document.getElementById('cancel-btn');
 fileInput.addEventListener('change', changeInputText);
 fileInput.addEventListener('change', changeState);
 fileInput.addEventListener('change', handleFile, false);
+
+cancelBtn.addEventListener('click', function() {
+	fileInput.value = "";
+	fileInputText.value = "";
+	changeState();
+	renderDOM([]);
+});
 
 $(window).scroll(function() {
 	$('#content-header').css({
@@ -13,13 +22,11 @@ $(window).scroll(function() {
 
 function changeState() {
     if (fileInputText.value.length != 0) {
-    	if (!fileInputTextDiv.classList.contains("is-focused")) {
-      		fileInputTextDiv.classList.add('is-focused');
-    	}
+    	confirmBtn.classList.remove('is-hidden');
+  		cancelBtn.classList.remove('is-hidden');
   	} else {
-    	if (fileInputTextDiv.classList.contains("is-focused")) {
-      		fileInputTextDiv.classList.remove('is-focused');
-    	}
+    	confirmBtn.classList.add('is-hidden');
+  		cancelBtn.classList.add('is-hidden');
   	}
 }
 

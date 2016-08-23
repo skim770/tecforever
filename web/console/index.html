@@ -29,20 +29,40 @@
         <ul class="nav navbar-nav navbar-left">
           <li><a class="navbar-brand navbar-console-brand page-scroll" href="#page-top">TecForever</a></li>
           <li><p class="navbar-console-title">Console</p></li>
+          <li>
+            <div id="file_input_text_div" class="mdl-textfield mdl-js-textfield textfield-demo">
+            <input class="file_input_text mdl-textfield__input no-borders" type="text" readonly id="file_input_text" />
+            <label class="mdl-textfield__label" for="file_input_text"></label>
+          </div>
+          </li>
         </ul>
       </div>
 
       <div class="file_input_div nav navbar-nav navbar-right navbar-upload">
-        <div class="file_input">
-          <label class="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored tf-bg-blue">
-            <i class="material-icons">file_upload</i>
-            <input id="file_input_file" class="none" type="file" />
-          </label>
-        </div>
-        <div id="file_input_text_div" class="mdl-textfield mdl-js-textfield textfield-demo">
-          <input class="file_input_text mdl-textfield__input" type="text" disabled readonly id="file_input_text" />
-          <label class="mdl-textfield__label" for="file_input_text"></label>
-        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <div id="confirm-btn" class="confirm_upload_btn is-hidden">
+              <label class="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored tf-bg-blue">
+                <i class="material-icons">done</i>
+              </label>
+            </div>
+          </li>
+          <li>
+            <div id="cancel-btn" class="cancel_upload_btn is-hidden">
+              <label class="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored tf-bg-blue">
+                <i class="material-icons">clear</i>
+              </label>
+            </div>
+          </li>
+          <li>
+            <div class="file_input">
+              <label class="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored tf-bg-blue">
+                <i class="material-icons">file_upload</i>
+                <input id="file_input_file" class="none" type="file" />
+              </label>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -66,8 +86,7 @@
               <table>
               <tr>
                 <td><div class="shipment">SHIPMENT</div></td>
-                <td><div class="packing-slips-seq">LG/CYN PACKING SLIPS SEQUENCE</div>
-                </td>
+                <td><div class="packing-slips-seq">LG/CYN PACKING SLIPS SEQUENCE</div></td>
                 <td><div class="lg-wh">LG WH</div></td>
                 <td><div class="inventory-type">TYPE</div></td>
                 <td><div class="model-num">MODEL</div></td>
