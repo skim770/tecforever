@@ -46,6 +46,12 @@ p {
   background-color: #222222;
   color: white;
 }
+.tf-blue {
+  color: #2196F3 !important;
+}
+.tf-bg-blue {
+  background-color: #2196F3 !important;
+}
 .text-faded {
   color: rgba(255, 255, 255, 0.7);
 }

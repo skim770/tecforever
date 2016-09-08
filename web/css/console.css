@@ -1,12 +1,6 @@
 body {
 	display: flex;
 }
-.tf-blue {
-	color: #2196F3 !important;
-}
-.tf-bg-blue {
-	background-color: #2196F3 !important;
-}
 .navbar-console {
 	background-color: white;
 	z-index: 5;

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>TecForever</title>
+
+  <script src="https://npmcdn.com/react@15.3.1/dist/react.min.js"></script>
+  <script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.min.js"></script>
+  <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>
+
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue_grey-red.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+  <link href="css/creative.css" rel="stylesheet">
+  <link href="css/inventory.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header navbar-inventory">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a class="navbar-inventory-brand page-scroll" href="#page-top">TecForever</a></li>
+          <li><p class="navbar-inventory-title">Inventory</p></li>
+        </ul>
+      </div>
+      <div class="content-header">
+        <ul class="nav navbar-nav">
+          <li><a id="new" class="nav-cat">New Arrivals</a></li>
+          <li><a id="ref" class="nav-cat">Refrigerators</a></li>
+          <li><a id="wd" class="nav-cat">Washers &amp; Dryers</a></li>
+          <li><a id="dw" class="nav-cat">Dishwashers</a></li>
+          <li><a id="cooking" class="nav-cat">Cooking Appliances</a></li>
+          <li><a id="av" class="nav-cat">Audio &amp; Video</a></li>
+          <li><a id="tv" class="nav-cat">Televisions</a></li>
+          <li><a id="others" class="nav-cat">Others</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="wrapper">
+    <div id="sidebar-wrapper">
+      <div id="sidebar-title-wrapper">
+        <h5 class="sidebar-title">Inventory Filters</h5>
+      </div>
+      <ul class="sidebar-nav navbar-offset">
+        <li>Filter 1</li>
+        <li>Filter 2</li>
+        <li>Filter 3</li>
+      </ul>
+    </div>
+    <div id="page-content-wrapper">
+      <div id="inventory_container" class="content-container"></div>
+    </div>
+  </div>
+
+  <script src="vendor/jquery/jquery.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.js"></script>
+  <script lang="javascript" src="node_modules/xlsx/dist/xlsx.core.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src="vendor/scrollreveal/scrollreveal.js"></script>
+  <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
+  <script src="src/js/creative.js"></script>
+  <script type="text/babel" src="src/js/inventory.js"></script>
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+</body>
+</html>
