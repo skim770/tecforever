@@ -29,6 +29,9 @@ body {
 .none {
   display: none !important;
 }
+.scoot-left {
+	margin-left: -100px !important;
+}
 .no-borders {
   border-width: 0px;
 }
@@ -48,7 +51,7 @@ body {
   position: fixed;
   left: 250px;
   width: 0;
-  height: 100%;
+  height: calc(100% - 80px);
   margin-left: -250px;
   overflow-y: auto;
   background: rgb(250, 250, 250);
@@ -59,7 +62,7 @@ body {
   transition: all 0.5s ease;
 }
 h5.sidebar-title {
-	margin-top: 15px;
+	margin-top: 20px;
 	margin-left: 15px;
 }
 #wrapper.toggled #sidebar-wrapper {
@@ -120,13 +123,14 @@ h5.sidebar-title {
 	max-width: 250px;
 }
 .item-img {
-	display: block;
+	display: inline-block;
 	min-width: 200px;
 	max-width: 200px;
 	min-height: 200px;
 	max-height: 200px;
 	margin-bottom: 20px;
 	text-align: center;
+	float: center;
 }
 .item-manufacturer {
 	font-weight: bold;
@@ -153,15 +157,14 @@ h5.sidebar-title {
 
 /* Sidebar Styles */
 .sidebar-nav {
-  position: absolute;
+  position: relative;
   width: 250px;
-  margin: 0;
+  margin-bottom: 20px;
   padding: 0;
   list-style: none;
 }
 .sidebar-nav li {
   text-indent: 20px;
-  line-height: 40px;
 }
 .sidebar-nav li a {
   display: block;
@@ -189,6 +192,7 @@ h5.sidebar-title {
   color: #fff;
   background: none;
 }
+
 @media(min-width:768px) {
   #wrapper {
     padding-left: 250px;
