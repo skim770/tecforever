@@ -50,7 +50,7 @@
   </nav>
 
   <div id="wrapper">
-    <div id="sidebar-wrapper">
+    <div id="sidebar-wrapper" class="none">
       <div id="ref-filters" class="is-hidden">
         <h5 class="sidebar-title">Refrigerator Type</h5>
         <ul class="sidebar-nav navbar-offset">
@@ -284,9 +284,49 @@
     <div id="page-content-wrapper">
       <div id="inventory_container" class="content-container"></div>
     </div>
+    <div id="item-detail-popup" class="overlay-popup none">
+      <div class="col-md-4">
+        <img id="ItemImage" width="100%" height="100%"/>
+      </div>
+      <div class="col-md-8">
+        <div><h1 id="Description"></h1></div>
+        <div>
+          <table id="DataTable" width="100%">
+            <tr id="Labels">
+              <td>MANUFACTURER</td>
+              <td>MODEL</td>
+              <td>SERIAL</td>
+              <td id="LabelWarranty">WARRANTY</td>
+              <td id="LabelCondition">CONDITION</td>
+            </tr>
+            <tr id="ItemInfo">
+              <td id="Manufacturer"></td>
+              <td id="Model"></td>
+              <td id="Serial"></td>
+              <td id="Warranty"></td>
+              <td id="Condition"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="Prices">
+          <table id="PricesTable">
+            <tr id="Labels">
+              <td>Our Price</td>
+              <td>Original Price</td>
+            </tr>
+            <tr>
+              <td id="OurPrice"></td>
+              <td id="OriginalPrice"></td>
+            </tr>
+          </table>
+        </div>
+        <p id="EmailUsLabel">Questions? Interested in this appliance? <a id="SendEmail">E-mail us!</a></p>
+      </div>
+    </div>
   </div>
 
   <script src="vendor/jquery/jquery.js"></script>
+  <script src="vendor/jquery/popupoverlay.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.js"></script>
   <script lang="javascript" src="node_modules/xlsx/dist/xlsx.core.min.js"></script>
 

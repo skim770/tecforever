@@ -121,6 +121,12 @@ h5.sidebar-title {
 	padding: 25px;
 	margin-left: 25px;
 	max-width: 250px;
+	border-radius: 4px;
+}
+.inventory-item:hover {
+	cursor: pointer;
+	background-color: rgba(240, 240, 240, 0.5);
+	box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.14);
 }
 .item-img {
 	display: inline-block;
@@ -141,9 +147,7 @@ h5.sidebar-title {
 	font-weight: lighter;
 	text-align: left;
 }
-.item-desc {
-	
-}
+.item-desc {}
 .item-original-price {
 	color: #F44336;
 	text-decoration: line-through;
@@ -153,6 +157,72 @@ h5.sidebar-title {
 	color: #2196F3;
 	text-align: right;
 	font-size: 20px;
+}
+#item-detail-popup,
+#item-detail-popup-wrapper,
+#item-detail-popup-background {
+	transition: all 0.3s;
+}
+.overlay-popup {
+	background-color: white;
+	margin: 50px;
+	padding: 20px;
+	border-radius: 4px;
+	transition: all 0.3s;
+}
+.overlay-bg {
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+	color: rgba(255, 255, 255, 0.5);
+}
+#ItemImage {
+	max-width: 400px;
+	max-height: 400px;
+}
+#Description {
+	padding-bottom: 10px;
+}
+#Labels {
+	font-weight: bold;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 0.65);
+}
+#ItemInfo {
+	font-size: 20px;
+}
+#Prices {
+	padding-top: 20px;
+}
+#PricesTable {
+	background-color: #E3F2FD;
+	border-radius: 10px;
+}
+#PricesTable tr:first-child td {
+	padding-top: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 5px;
+}
+#PricesTable tr:last-child td {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 15px;
+}
+#OurPrice {
+	color: #2196F3;
+	font-size: 25px;
+}
+#OriginalPrice {
+	color: #F44336;
+	font-size: 20px;
+	text-decoration: line-through;
+}
+#EmailUsLabel {
+	padding-top: 30px;
+	color: #9E9E9E;
 }
 
 /* Sidebar Styles */

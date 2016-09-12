@@ -9,6 +9,8 @@ var config = {
 };
 firebase.initializeApp(config);
 var fbInventoryRef = firebase.database().ref('inventory');
+var fbInvInStockRef = firebase.database().ref('inventory/inStock');
+var fbInvSoldOutRef = firebase.database().ref('inventory/soldOut');
 
 window.onload = function() {
 	firebase.auth().onAuthStateChanged(function(user) {
@@ -20,6 +22,9 @@ window.onload = function() {
 };
 
 var feedData;
+var inventory = [];
+var inStock = [];
+var soldOut = [];
 var fileInputTextDiv = document.getElementById('file_input_text_div');
 var fileInput = document.getElementById('file_input_file');
 var fileInputText = document.getElementById('file_input_text');
@@ -62,29 +67,39 @@ function reset() {
 	renderDOM(fullInventory());
 }
 
-function fullInventory(filter) {
-	var inventory = [];
-	if (filter) {
-		alert(filter + " filter detected.");
-	} else {
-		fbInventoryRef.once('value', function(snapshot) {
+function fullInventory() {
+	fbInvInStockRef.once('value', function(snapshot) {
+		snapshot.forEach(function(item) {
+			var newItem = item.val();
+			newItem.firebaseKey = item.key;
+			inStock.push(newItem);
+			inventory.push(newItem);
+		});
+	}).then(function() {
+		fbInvSoldOutRef.once('value', function(snapshot) {
 			snapshot.forEach(function(item) {
 				var newItem = item.val();
 				newItem.firebaseKey = item.key;
+				soldOut.push(newItem);
 				inventory.push(newItem);
 			});
+		}).then(function() {
 			renderDOM(inventory);
 		});
-	}
+	});
 }
 
 function pushNewInventory(inventory) {
-	var updates = {};
 	var today = new Date();
 	for (var index in inventory) {
-		var newKey = fbInventoryRef.push().key;
-	    inventory[index].datePosted = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
-	    fbInventoryRef.child(newKey).set(inventory[index]);
+		inventory[index].datePosted = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+		if (inventory[index].remain != null && inventory[index].soldOut == null) {
+			var newKey = fbInvInStockRef.push().key;
+		    fbInvInStockRef.child(newKey).set(inventory[index]);
+		} else if (inventory[index].remain == null && inventory[index].soldOut != null) {
+			var newKey = fbInvSoldOutRef.push().key;
+		    fbInvSoldOutRef.child(newKey).set(inventory[index]);
+		}
 	}
 	alert("[" + today + "]\n\n" + fileInputText.value + "\n\tadded to the inventory.");
 }

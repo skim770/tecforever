@@ -1,3 +1,4 @@
+
 var config = {
     apiKey: "AIzaSyAJI1mRoNKalrvI6GxgzgcL2e0FRx2bg7I",
     authDomain: "tecforever-549d2.firebaseapp.com",
@@ -6,6 +7,7 @@ var config = {
 };
 firebase.initializeApp(config);
 var inventoryRef = firebase.database().ref('inventory');
+var inStockRef = firebase.database().ref('inventory/inStock');
 
 firebase.auth().signInAnonymously().catch(function(error) {
   var errorCode = error.code;
@@ -40,32 +42,36 @@ tabTv.addEventListener('click', function() {activateCategory('#tv')});
 var tabOthers = document.getElementById('others');
 tabOthers.addEventListener('click', function() {activateCategory('#others')});
 
-inventoryRef.orderByChild('datePosted').once('value').then(function(snapshot) {
+inStockRef.orderByChild('datePosted').once('value').then(function(snapshot) {
 	snapshot.forEach(function(item) {
 		if (item.val().remain != null && parseInt(item.val().remain) > 0) {
-			itemsNew.push(item.val());
+			var itemClone = item.val();
+			itemClone["firebaseKey"] = item.key;
+			itemsNew.push(itemClone);
 		}
 	});
 	activateCategory('#new');
 });
-inventoryRef.once('value').then(function(snapshot) {
+inStockRef.once('value').then(function(snapshot) {
 	snapshot.forEach(function(item) {
 		if (item.val().remain != null && parseInt(item.val().remain) > 0) {
+			var itemClone = item.val();
+			itemClone["firebaseKey"] = item.key;
 			var type = item.val().inventoryType.toUpperCase();
 			if (type.includes("RF") || type.includes("REF")) {
-				itemsRef.push(item.val());
+				itemsRef.push(itemClone);
 			} else if (type.includes("WASH") || type.includes("DRYER") || type.includes("PEDESTAL")) {
-				itemsWd.push(item.val());
+				itemsWd.push(itemClone);
 			} else if (type.includes("DISHW")) {
-				itemsDw.push(item.val());
+				itemsDw.push(itemClone);
 			} else if (type.includes("RANG") || type.includes("COOKTOP") || type.includes("OVEN") || type.includes("STOVE") || type.includes("MICRW")) {
-				itemsCooking.push(item.val());
+				itemsCooking.push(itemClone);
 			} else if (type.includes("DVD") || type.includes("SOUND") || type.includes("AUDIO") || type.includes("PROJECTOR") || type.includes("THEATER")) {
-				itemsAv.push(item.val());
+				itemsAv.push(itemClone);
 			} else if (type.includes("TV")) {
-				itemsTv.push(item.val());
+				itemsTv.push(itemClone);
 			} else {
-				itemsOthers.push(item.val());
+				itemsOthers.push(itemClone);
 			}
 		}
 	});
@@ -119,7 +125,7 @@ var InventoryList = React.createClass({
 	render: function() {
 		var items = this.props.data.map(function(item) {
 			return (
-				<Item data={item} />
+				<Item data={item}/>
 			);
 		});
 		return (
@@ -131,45 +137,84 @@ var InventoryList = React.createClass({
 });
 
 var Item = React.createClass({
+	handleClick: function(data) {
+		$('#item-detail-popup').removeClass("none");
+		$('#ItemImage').attr('src', data.imgSrc);
+		if (data.desc != null) {
+			$('#Description').text(data.desc);
+		} else {
+			$('#Description').text("");
+		}
+		$('#Manufacturer').text(data.manufacturer);
+		$('#Model').text(data.model);
+		$('#Serial').text(data.serial);
+		if (data.warranty != null) {
+			$('#LabelWarranty').removeClass("none");
+			$('#Warranty').removeClass("none");
+			$('#Warranty').text(data.warranty);
+		} else {
+			$('#LabelWarranty').addClass("none");
+			$('#Warranty').addClass("none");
+		}
+		if (data.condition != null) {
+			$('#LabelCondition').removeClass("none");
+			$('#Condition').removeClass("none");
+			$('#Condition').text(data.condition);
+		} else {
+			$('#LabelCondition').addClass("none");
+			$('#Condition').addClass("none");
+		}
+		$('#OurPrice').text("$" + data.retailCost);
+		$('#OriginalPrice').text("$" + data.origMarketCost);
+
+		var subject = "Regarding " + data.serial;
+		var body = "Hi,\n\nI am interested in the following item,\n\n" + data.desc + "\nSERIAL: " + data.serial + "\nMODEL: " + data.model + "\n";
+		var mailStr = "mailto:sales@tecforever.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+		$('#SendEmail').attr('href',  mailStr);
+
+		$('#item-detail-popup').popup('show');
+	},
 	render: function() {
-		var imgTag;
-		var type = this.props.data.inventoryType.toUpperCase();
+		var data = this.props.data;
+		var type = data.inventoryType.toUpperCase();
 		if (type.includes("RF") || type.includes("REF")) {
-			imgTag = (<img src="resources/img/appliance_icons/refrigerator.svg" alt="Refrigerator" height="100%"/>);
+			data["imgSrc"] = "resources/img/appliance_icons/refrigerator.svg";
 		} else if (type.includes("WASH") || type.includes("DRYER") || type.includes("PEDESTAL")) {
-			imgTag = (<img src="resources/img/appliance_icons/washing-machine.svg" width="100%" height="100%"/>);
+			data["imgSrc"] = "resources/img/appliance_icons/washing-machine.svg";
 		} else if (type.includes("DISHW")) {
+			data["imgSrc"] = "resources/img/appliance_icons/dishwasher.svg";
 			// var srclink = "http://www.lg.com/us/images/dishwashers/" + this.props.data.model.toLowerCase() + "/gallery/large01.jpg";
 			// imgTag = (<img src={srclink} alt="Image not found" height="200px"/>);
-			imgTag = (<img src="resources/img/appliance_icons/dishwasher.svg" width="100%" height="100%"/>);
 		} else if (type.includes("RANG") || type.includes("COOKTOP") || type.includes("OVEN") || type.includes("STOVE") || type.includes("MICRW")) {
-			imgTag = (<img src="resources/img/appliance_icons/oven.svg" width="100%" height="100%"/>);
+			data["imgSrc"] = "resources/img/appliance_icons/oven.svg";
 		} else if (type.includes("DVD") || type.includes("SOUND") || type.includes("AUDIO") || type.includes("PROJECTOR") || type.includes("THEATER")) {
-			imgTag = (<img src="resources/img/appliance_icons/music-player.svg" width="100%" height="100%"/>);
+			data["imgSrc"] = "resources/img/appliance_icons/music-player.svg";
 		} else if (type.includes("TV")) {
-			imgTag = (<img src="resources/img/appliance_icons/television.svg" width="100%" height="100%"/>);
+			data["imgSrc"] = "resources/img/appliance_icons/television.svg";
 		} else {
-			imgTag = (<img src="resources/img/tf-logo.png" width="100%" height="100%"/>);
+			data["imgSrc"] = "resources/img/tf-logo.png";
 		}
 
 		return (
-			<div className="inventory-item col-md-3">
-				<div className="item-img">{imgTag}</div>
+			<div className="inventory-item col-md-3" onClick={this.handleClick.bind(this, data)}>
+				<div className="item-img">
+					<img src={data["imgSrc"]} width="100%" height="100%"/>
+				</div>
 				<table width="100%"><tr>
 					<td className="item-manufacturer">
-						<div>{this.props.data.manufacturer}</div>
+						<div>{data.manufacturer}</div>
 					</td>
 					<td className="item-model">
-						<div>{this.props.data.model}</div>
+						<div>{data.model}</div>
 					</td>
 				</tr></table>
-				<div className="item-desc">{this.props.data.desc}</div>
+				<div className="item-desc">{data.desc}</div>
 				<div><table width="100%"><tr>
 					<td className="item-original-price">
-						<div>${this.props.data.origMarketCost}</div>
+						<div>${data.origMarketCost}</div>
 					</td>
 					<td className="item-new-price">
-						<div>${this.props.data.retailCost}</div>
+						<div>${data.retailCost}</div>
 					</td>
 				</tr></table></div>
 			</div>
