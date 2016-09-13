@@ -11,6 +11,8 @@ firebase.initializeApp(config);
 var fbInventoryRef = firebase.database().ref('inventory');
 var fbInvInStockRef = firebase.database().ref('inventory/inStock');
 var fbInvSoldOutRef = firebase.database().ref('inventory/soldOut');
+var fbInvScrapRef = firebase.database().ref('inventory/scrap');
+var fbImgMapRef = firebase.database().ref('/imageMap');
 
 window.onload = function() {
 	firebase.auth().onAuthStateChanged(function(user) {
@@ -25,6 +27,7 @@ var feedData;
 var inventory = [];
 var inStock = [];
 var soldOut = [];
+var imgMap = {};
 var fileInputTextDiv = document.getElementById('file_input_text_div');
 var fileInput = document.getElementById('file_input_file');
 var fileInputText = document.getElementById('file_input_text');
@@ -90,18 +93,54 @@ function fullInventory() {
 }
 
 function pushNewInventory(inventory) {
-	var today = new Date();
-	for (var index in inventory) {
-		inventory[index].datePosted = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
-		if (inventory[index].remain != null && inventory[index].soldOut == null) {
-			var newKey = fbInvInStockRef.push().key;
-		    fbInvInStockRef.child(newKey).set(inventory[index]);
-		} else if (inventory[index].remain == null && inventory[index].soldOut != null) {
-			var newKey = fbInvSoldOutRef.push().key;
-		    fbInvSoldOutRef.child(newKey).set(inventory[index]);
+	fbImgMapRef.once('value', function(snapshot) {
+		snapshot.forEach(function(item) {
+			imgMap[item.key] = item.val();
+		});
+		var today = new Date();
+		for (var index in inventory) {
+			inventory[index].imgSrc = mapDataToImage(inventory[index].inventoryType, inventory[index].model, inventory[index].desc);
+			inventory[index].datePosted = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+			if ((inventory[index].retailCost == null || typeof inventory[index].retailCost == 'undefined') && (inventory[index].origMarketCost == null || typeof inventory[index].origMarketCost == 'undefined')) {
+				var newKey = fbInvScrapRef.push().key;
+				fbInvScrapRef.child(newKey).set(inventory[index]);
+			} else if (inventory[index].remain != null && inventory[index].soldOut == null) {
+				var newKey = fbInvInStockRef.push().key;
+			    fbInvInStockRef.child(newKey).set(inventory[index]);
+			} else if (inventory[index].remain == null && inventory[index].soldOut != null) {
+				var newKey = fbInvSoldOutRef.push().key;
+			    fbInvSoldOutRef.child(newKey).set(inventory[index]);
+			}
+		}
+		alert("[" + today + "]\n\n" + fileInputText.value + "\n\tadded to the inventory.");
+	});
+}
+
+function mapDataToImage(inventoryType, model, description) {
+	var imgSrc;
+	if (imgMap[model] != null) {
+		imgSrc = imgMap[model];
+	} else {
+		var desc = description != null? description.toLowerCase() : "";
+		var xmlHttp = new XMLHttpRequest();
+		var type = inventoryType.toUpperCase();
+		if (type.includes("RF") || type.includes("REF")) {
+			imgSrc = "resources/img/appliance_icons/refrigerator.svg";
+		} else if (type.includes("WASH") || type.includes("DRYER") || type.includes("PEDESTAL")) {
+			imgSrc = "resources/img/appliance_icons/washing-machine.svg";
+		} else if (type.includes("DISHW")) {
+			imgSrc = "resources/img/appliance_icons/dishwasher.svg";
+		} else if (type.includes("RANG") || type.includes("COOKTOP") || type.includes("OVEN") || type.includes("STOVE") || type.includes("MICRW")) {
+			imgSrc = "resources/img/appliance_icons/oven.svg";
+		} else if (type.includes("DVD") || type.includes("SOUND") || type.includes("AUDIO") || type.includes("PROJECTOR") || type.includes("THEATER")) {
+			imgSrc = "resources/img/appliance_icons/music-player.svg";
+		} else if (type.includes("TV")) {
+			imgSrc = "resources/img/appliance_icons/television.svg";
+		} else {
+			imgSrc = "resources/img/tf-logo.png";
 		}
 	}
-	alert("[" + today + "]\n\n" + fileInputText.value + "\n\tadded to the inventory.");
+	return imgSrc;
 }
 
 function changeInputText() {

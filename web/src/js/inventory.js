@@ -23,7 +23,6 @@ var itemsDw = [];
 var itemsCooking = [];
 var itemsAv = [];
 var itemsTv = [];
-var itemsOthers = [];
 
 var tabNew = document.getElementById('new');
 tabNew.addEventListener('click', function() {activateCategory('#new')});
@@ -39,8 +38,6 @@ var tabAv = document.getElementById('av');
 tabAv.addEventListener('click', function() {activateCategory('#av')});
 var tabTv = document.getElementById('tv');
 tabTv.addEventListener('click', function() {activateCategory('#tv')});
-var tabOthers = document.getElementById('others');
-tabOthers.addEventListener('click', function() {activateCategory('#others')});
 
 inStockRef.orderByChild('datePosted').once('value').then(function(snapshot) {
 	snapshot.forEach(function(item) {
@@ -50,7 +47,7 @@ inStockRef.orderByChild('datePosted').once('value').then(function(snapshot) {
 			itemsNew.push(itemClone);
 		}
 	});
-	activateCategory('#new');
+	activateCategory('#ref');
 });
 inStockRef.once('value').then(function(snapshot) {
 	snapshot.forEach(function(item) {
@@ -70,8 +67,6 @@ inStockRef.once('value').then(function(snapshot) {
 				itemsAv.push(itemClone);
 			} else if (type.includes("TV")) {
 				itemsTv.push(itemClone);
-			} else {
-				itemsOthers.push(itemClone);
 			}
 		}
 	});
@@ -79,7 +74,7 @@ inStockRef.once('value').then(function(snapshot) {
 
 function activateCategory(id) {
 	categories.forEach(function(category) {
-		if (id === '#new' || id === '#others') {
+		if (id === '#new') {
 			$('#sidebar-wrapper').addClass("none");
 			$('#page-content-wrapper').addClass("scoot-left");
 		} else {
@@ -176,29 +171,10 @@ var Item = React.createClass({
 	},
 	render: function() {
 		var data = this.props.data;
-		var type = data.inventoryType.toUpperCase();
-		if (type.includes("RF") || type.includes("REF")) {
-			data["imgSrc"] = "resources/img/appliance_icons/refrigerator.svg";
-		} else if (type.includes("WASH") || type.includes("DRYER") || type.includes("PEDESTAL")) {
-			data["imgSrc"] = "resources/img/appliance_icons/washing-machine.svg";
-		} else if (type.includes("DISHW")) {
-			data["imgSrc"] = "resources/img/appliance_icons/dishwasher.svg";
-			// var srclink = "http://www.lg.com/us/images/dishwashers/" + this.props.data.model.toLowerCase() + "/gallery/large01.jpg";
-			// imgTag = (<img src={srclink} alt="Image not found" height="200px"/>);
-		} else if (type.includes("RANG") || type.includes("COOKTOP") || type.includes("OVEN") || type.includes("STOVE") || type.includes("MICRW")) {
-			data["imgSrc"] = "resources/img/appliance_icons/oven.svg";
-		} else if (type.includes("DVD") || type.includes("SOUND") || type.includes("AUDIO") || type.includes("PROJECTOR") || type.includes("THEATER")) {
-			data["imgSrc"] = "resources/img/appliance_icons/music-player.svg";
-		} else if (type.includes("TV")) {
-			data["imgSrc"] = "resources/img/appliance_icons/television.svg";
-		} else {
-			data["imgSrc"] = "resources/img/tf-logo.png";
-		}
-
 		return (
 			<div className="inventory-item col-md-3" onClick={this.handleClick.bind(this, data)}>
 				<div className="item-img">
-					<img src={data["imgSrc"]} width="100%" height="100%"/>
+					<img src={data.imgSrc} width="auto" height="100%"/>
 				</div>
 				<table width="100%"><tr>
 					<td className="item-manufacturer">

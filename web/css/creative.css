@@ -404,10 +404,10 @@ fieldset[disabled] .btn-primary.active {
   color: white;
   background-color: #2196F3;
 }
-.btn-appliance:hover {
+/*.btn-appliance:hover {
   background-color: #EEEEEE;
   border-radius: 5px;
-}
+}*/
 ::-moz-selection {
   color: white;
   text-shadow: none;
