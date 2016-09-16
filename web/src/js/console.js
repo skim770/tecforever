@@ -33,6 +33,7 @@ var fileInput = document.getElementById('file_input_file');
 var fileInputText = document.getElementById('file_input_text');
 var confirmBtn = document.getElementById('confirm-btn');
 var cancelBtn = document.getElementById('cancel-btn');
+var overlayCancelBtn = document.getElementById('cancelSave');
 fileInput.addEventListener('change', changeInputText);
 fileInput.addEventListener('change', changeState);
 fileInput.addEventListener('change', handleFile, false);
@@ -40,11 +41,13 @@ fileInput.addEventListener('change', handleFile, false);
 confirmBtn.addEventListener('click', function() {
 	if (feedData != null) {
 		pushNewInventory(feedData);
-		reset();
 	}
 })
 cancelBtn.addEventListener('click', function() {
 	reset();
+});
+overlayCancelBtn.addEventListener('click', function() {
+	$('#item-detail-popup').popup('hide');
 });
 
 $(window).scroll(function() {
@@ -64,6 +67,9 @@ function changeState() {
 }
 
 function reset() {
+	inventory = [];
+	inStock = [];
+	soldOut = [];
 	fileInput.value = "";
 	fileInputText.value = "";
 	changeState();
@@ -88,6 +94,9 @@ function fullInventory() {
 			});
 		}).then(function() {
 			renderDOM(inventory);
+			console.log("Rendering " + inventory.length + " inventory items.");
+			console.log("Rendering " + inStock.length + " inStock items.");
+			console.log("Rendering " + soldOut.length + " soldOut items.");
 		});
 	});
 }
@@ -113,6 +122,7 @@ function pushNewInventory(inventory) {
 			}
 		}
 		alert("[" + today + "]\n\n" + fileInputText.value + "\n\tadded to the inventory.");
+		reset();
 	});
 }
 
@@ -141,6 +151,62 @@ function mapDataToImage(inventoryType, model, description) {
 		}
 	}
 	return imgSrc;
+}
+
+function updateFirebaseFromOverlayInfo(key) {
+	var updates = {};
+	updates["/" + key + "/shipment"] = $('#Shipment').val();
+	updates["/" + key + "/packingSlipSeq"] = $('#PackingSlipsSeq').val();
+	updates["/" + key + "/sysInputType"] = $('#SysInputType').val();
+	updates["/" + key + "/lgwh"] = $('#LGWH').val();
+	updates["/" + key + "/whLoc"] = $('#WHLOC').val();
+	updates["/" + key + "/cynWH"] = $('#CYNWH').val();
+	updates["/" + key + "/manufacturer"] = $('#Manufacturer').val();
+	updates["/" + key + "/division"] = $('#Division').val();
+	updates["/" + key + "/bayDockNum"] = $('#LGBayDock').val();
+	updates["/" + key + "/inventoryType"] = $('#InventoryType').val();
+	updates["/" + key + "/model"] = $('#Model').val();
+	updates["/" + key + "/desc"] = $('#Description').val();
+	updates["/" + key + "/correctedModel"] = $('#CorrectedModel').val();
+	updates["/" + key + "/serialNum"] = $('#SerialNum').val();
+	updates["/" + key + "/tagRemoval"] = $('#TagRemoval').val();
+	updates["/" + key + "/correctedSerial"] = $('#CorrectedSerial').val();
+	updates["/" + key + "/cynSerial"] = $('#CYNSerial').val();
+	updates["/" + key + "/grade"] = $('#Grade').val();
+	updates["/" + key + "/funcTestFailed"] = $('#FunctionTest').val();
+	updates["/" + key + "/recdQty"] = $('#RecdQty').val();
+	updates["/" + key + "/noRecdQty"] = $('#NoRecdQty').val();
+	updates["/" + key + "/packingSlipQty"] = $('#PackingSlipQty').val();
+	updates["/" + key + "/packingSlipNum"] = $('#ShipLoadPackingSlip').val();
+	updates["/" + key + "/truckLoadNum"] = $('#ShipTruckLoadNum').val();
+	updates["/" + key + "/hold"] = $('#Hold').val();
+	updates["/" + key + "/offer"] = $('#Offer').val();
+	updates["/" + key + "/deliveryStorage"] = $('#DeliveryStorage').val();
+	updates["/" + key + "/warranty"] = $('#Warranty').val();
+	updates["/" + key + "/prevLoc"] = $('#CYNPrevWHLoc').val();
+	updates["/" + key + "/recdTruckLoadNum"] = $('#RecdTruckLoadNum').val();
+	updates["/" + key + "/containerNum"] = $('#RecdContainerNum').val();
+	updates["/" + key + "/recdDate"] = $('#RecdDate').val();
+	updates["/" + key + "/condition"] = $('#Condition').val();
+	updates["/" + key + "/purchasedPricingRate"] = $('#PurchasedPricingRate').val();
+	updates["/" + key + "/unitPrice"] = $('#UnitPrice').val();
+	updates["/" + key + "/lgAmount"] = $('#LGAmount').val();
+	updates["/" + key + "/daeheung"] = $('#Daeheung').val();
+	updates["/" + key + "/cynCost"] = $('#CYNCost').val();
+	updates["/" + key + "/vipCost"] = $('#VIPCost').val();
+	updates["/" + key + "/wholesaleCost"] = $('#WholesaleCost').val();
+	updates["/" + key + "/origMarketCost"] = $('#OriginalMarketCost').val();
+	updates["/" + key + "/priceOffRate"] = $('#PriceOffRate').val();
+	updates["/" + key + "/retailCost"] = $('#RetailCost').val();
+	updates["/" + key + "/soldOutActCost"] = $('#SoldOutActCost').val();
+	updates["/" + key + "/invoice"] = $('#InvoiceNum').val();
+	updates["/" + key + "/tfPO"] = $('#PONum').val();
+	updates["/" + key + "/soldOut"] = $('#SoldOut').val();
+	updates["/" + key + "/remain"] = $('#Remain').val();
+	fbInvInStockRef.update(updates).then(function() {
+		$('#item-detail-popup').popup('hide');
+		reset();
+	});
 }
 
 function changeInputText() {
@@ -292,8 +358,14 @@ function processRawJsonData(json) {
 				renderData.tfPO = data[k];
 			} else if (key.includes("sold") && key.includes("out")) {
 				renderData.soldOut = data[k];
+				if (data[k] == null || data[k] == "") {
+					renderData.soldOut = 0;
+				}
 			} else if (key.includes("remain")) {
 				renderData.remain = data[k];
+				if (data[k] == null || data[k] == "") {
+					renderData.remain = 0;
+				}
 			}
 		}
 		processedJSON.push(renderData);
@@ -320,10 +392,101 @@ var NewInventoryList = React.createClass({
 });
 
 var NewItem = React.createClass({
+	handleClick: function(data) {
+		$('#item-detail-popup').removeClass("none");
+		$('#ItemImage').attr('src', data.imgSrc);
+		$('#Shipment').val(data.shipment);
+		$('#PackingSlipsSeq').val(data.packingSlipSeq);
+		$('#SysInputType').val(data.sysInputType);
+		$('#LGWH').val(data.lgwh);
+		$('#WHLOC').val(data.whLoc);
+		$('#CYNWH').val(data.cynWH);
+		$('#Manufacturer').val(data.manufacturer);
+		$('#Division').val(data.division);
+		$('#LGBayDock').val(data.bayDockNum);
+		$('#InventoryType').val(data.inventoryType);
+		$('#Model').val(data.model);
+		$('#Description').val(data.desc);
+		$('#CorrectedModel').val(data.correctedModel);
+		$('#SerialNum').val(data.serialNum);
+		$('#TagRemoval').val(data.tagRemoval);
+		$('#CorrectedSerial').val(data.correctedSerial);
+		$('#CYNSerial').val(data.cynSerial);
+		$('#Grade').val(data.grade);
+		$('#FunctionTest').val(data.funcTestFailed);
+		$('#RecdQty').val(data.recdQty);
+		$('#NoRecdQty').val(data.noRecdQty);
+		$('#PackingSlipQty').val(data.packingSlipQty);
+		$('#ShipLoadPackingSlip').val(data.packingSlipNum);
+		$('#ShipTruckLoadNum').val(data.truckLoadNum);
+		$('#Hold').val(data.hold);
+		$('#Offer').val(data.offer);
+		$('#DeliveryStorage').val(data.deliveryStorage);
+		$('#Warranty').val(data.warranty);
+		$('#CYNPrevWHLoc').val(data.prevLoc);
+		$('#RecdTruckLoadNum').val(data.recdTruckLoadNum);
+		$('#RecdContainerNum').val(data.containerNum);
+		$('#RecdDate').val(data.recdDate);
+		$('#Condition').val(data.condition);
+		$('#PurchasedPricingRate').val(data.purchasedPricingRate);
+		$('#UnitPrice').val(data.unitPrice);
+		$('#LGAmount').val(data.lgAmount);
+		$('#Daeheung').val(data.daeheung);
+		$('#CYNCost').val(data.cynCost);
+		$('#VIPCost').val(data.vipCost);
+		$('#WholesaleCost').val(data.wholesaleCost);
+		$('#OriginalMarketCost').val(data.origMarketCost);
+		$('#PriceOffRate').val(data.priceOffRate);
+		$('#RetailCost').val(data.retailCost);
+		$('#SoldOutActCost').val(data.soldOutActCost);
+		$('#InvoiceNum').val(data.invoice);
+		$('#PONum').val(data.tfPO);
+		$('#SoldOut').val(data.soldOut);
+		$('#Remain').val(data.remain);
+
+		if (data.remain == null || data.remain == "" || data.remain == 0) {
+			$('#itemSold').addClass('none');
+		} else {
+			$('#itemSold').removeClass('none');
+			$('#itemSold').bind("click", function() {
+				var key = data.firebaseKey;
+				data.firebaseKey = null;
+				data.remain = parseInt(data.remain) - 1;
+				if (data.soldOut != null) {
+					data.soldOut = parseInt(data.soldOut) + 1;
+				} else {
+					data.soldOut = 1;
+				}
+				
+				if (data.remain <= 0) {
+					fbInvSoldOutRef.child(key).set(data);
+					fbInvInStockRef.child(key).remove().then(function() {
+						$('#item-detail-popup').popup('hide');
+						reset();
+					});
+				} else {
+					updateFirebaseFromOverlayInfo(key);
+				}
+			});
+		}
+
+		$('#deleteItem').bind("click", function() {
+			fbInvInStockRef.child(data.firebaseKey).remove().then(function() {
+				$('#item-detail-popup').popup('hide');
+				reset();
+			});
+		});
+
+		$('#saveToFirebase').bind("click", function() {
+			updateFirebaseFromOverlayInfo(data.firebaseKey);
+		});
+
+		$('#item-detail-popup').popup('show');
+	},
 	render: function() {
 		var data = this.props.data;
 		return (
-			<div className="new_inventory_item">
+			<div className="new_inventory_item" onClick={this.handleClick.bind(this, data)}>
 			<table><tr>
 				<td><div className="shipment">{data.shipment}</div></td>
 				<td><div className="packing-slips-seq">{data.packingSlipSeq}</div></td>

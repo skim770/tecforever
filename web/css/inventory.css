@@ -53,7 +53,8 @@ body {
   width: 0;
   height: calc(100% - 80px);
   margin-left: -250px;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
+  overflow-y: scroll;
   background: rgb(250, 250, 250);
   box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.14);
   -webkit-transition: all 0.5s ease;
@@ -91,6 +92,10 @@ h5.sidebar-title {
 	color: rgba(0, 0, 0, 0.65);
 	box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.14);
 	vertical-align: bottom;
+	-webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 .content-header ul {
 	margin-top: 46px;
@@ -111,6 +116,13 @@ h5.sidebar-title {
 	border-bottom-width: 3px;
 	border-bottom-style: solid;
 	border-bottom-color: #2196F3;
+}
+.new-arrivals {
+	color: #90CAF9 !important;
+}
+.new-arrivals:hover,
+.new-arrivals.active {
+	color: #0D47A1 !important;
 }
 
 #content-container {

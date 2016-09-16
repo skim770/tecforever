@@ -187,6 +187,105 @@ td {
 .sold-out { width: 30px; }
 .remain { width: 45px; }
 
+.overlay-popup {
+  background-color: white;
+  max-width: 950px;
+  margin: 50px;
+  padding: 20px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+.overlay-popup table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.overlay-popup table tr:hover {
+  background-color: #BBDEFB;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+.overlay-popup table td {
+  padding: 5px;
+}
+.overlay-popup table td:first-child {
+  white-space: nowrap;
+}
+.overlay-popup table td:last-child {
+  width: 99%;
+  max-width: 400px;
+}
+#ItemImage {
+  max-width: 400px;
+  max-height: 400px;
+}
+.overlay-label {
+  font-weight: bold;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.65);
+}
+.overlay-input {
+  background-color: transparent;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+  width: 100%;
+  max-width: 300px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.overlay-input:focus {
+  background-color: #BBDEFB;
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-color: #2196F3;
+  border-width: 2px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 16px;
+}
+.overlay-btn {
+  border-radius: 2px;
+  font-weight: bold;
+  padding: 8px 10px;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.overlay-btn:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+#itemSold {
+  background-color: #43A047;
+  float: left;
+  margin-right: 8px;
+  color: white;
+}
+#deleteItem {
+  background-color: #F44336;
+  float: left;
+  margin-right: 4px;
+  color: white;
+}
+#cancelSave {
+  background-color: white;
+  float: right;
+  margin-left: 8px;
+}
+#saveToFirebase {
+  background-color: #2196F3;
+  float: right;
+  margin-left: 4px;
+  color: white;
+}
+
 /* Sidebar Styles */
 .sidebar-nav {
   position: absolute;
@@ -263,6 +362,7 @@ td {
 	border-bottom-color: rgba(200, 200, 220, 0.5);
 }
 .new_inventory_item:hover {
+  cursor: pointer;
   background-color: rgba(33, 150, 243, 0.2);
 }
 .new_inventory_item table {

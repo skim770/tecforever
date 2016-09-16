@@ -144,9 +144,121 @@
       </div>
       <div class="content-container" id="inventory_container"></div>
     </div>
+    <div id="item-detail-popup" class="overlay-popup none">
+      <div class="col-md-4">
+        <img id="ItemImage" width="100%" height="100%"/>
+      </div>
+      <div class="col-md-8">
+        <table>
+          <tr><td><div class="overlay-label overlay-shipment">SHIPMENT</div></td>
+            <td><input type="text" class="overlay-input" id="Shipment"></td></tr>
+          <tr><td><div class="overlay-label overlay-packing-slips-seq">LG/CYN PACKING SLIPS SEQUENCE</div></td>
+            <td><input type="text" class="overlay-input" id="PackingSlipsSeq"></td></tr>
+          <tr><td><div class="overlay-label overlay-sys-input-type">LG SYSTEM INPUT TYPE</div></td>
+            <td><input type="text" class="overlay-input" id="SysInputType"></td></tr>
+          <tr><td><div class="overlay-label overlay-lg-wh">LG WH</div></td>
+            <td><input type="text" class="overlay-input" id="LGWH"></td></tr>
+          <tr><td><div class="overlay-label overlay-wh-loc">WH LOC.</div></td>
+            <td><input type="text" class="overlay-input" id="WHLOC"></td></tr>
+          <tr><td><div class="overlay-label overlay-cyn-wh">CYN WH</div></td>
+            <td><input type="text" class="overlay-input" id="CYNWH"></td></tr>
+          <tr><td><div class="overlay-label overlay-manufacture">MANUFACTURER</div></td>
+            <td><input type="text" class="overlay-input" id="Manufacturer"></td></tr>
+          <tr><td><div class="overlay-label overlay-division">DIVISION</div></td>
+            <td><input type="text" class="overlay-input" id="Division"></td></tr>
+          <tr><td><div class="overlay-label overlay-lg-bay-dock">LG BAY DOCK NUM</div></td>
+            <td><input type="text" class="overlay-input" id="LGBayDock"></td></tr>
+          <tr><td><div class="overlay-label overlay-inventory-type">TYPE</div></td>
+            <td><input type="text" class="overlay-input" id="InventoryType"></td></tr>
+          <tr><td><div class="overlay-label overlay-model-num">MODEL</div></td>
+            <td><input type="text" class="overlay-input" id="Model"></td></tr>
+          <tr><td><div class="overlay-label overlay-model-desc">DESCRIPTION</div></td>
+            <td><textarea class="overlay-input" id="Description"></textarea></td></tr>
+          <tr><td><div class="overlay-label overlay-corrected-model">CORRECTED MODEL NUM</div></td>
+            <td><input type="text" class="overlay-input" id="CorrectedModel"></td></tr>
+          <tr><td><div class="overlay-label overlay-serial-num">SERIAL NUM</div></td>
+            <td><input type="text" class="overlay-input" id="SerialNum"></td></tr>
+          <tr><td><div class="overlay-label overlay-tag-removal">SERIAL TAG REMOVAL</div></td>
+            <td><input type="text" class="overlay-input" id="TagRemoval"></td></tr>
+          <tr><td><div class="overlay-label overlay-corrected-serial">CORRECTED SERIAL NUM</div></td>
+            <td><input type="text" class="overlay-input" id="CorrectedSerial"></td></tr>
+          <tr><td><div class="overlay-label overlay-cyn-serial">CYN SERIAL</div></td>
+            <td><input type="text" class="overlay-input" id="CYNSerial"></td></tr>
+          <tr><td><div class="overlay-label overlay-cyn-cosmetic-grade">GRADE</div></td>
+            <td><input type="text" class="overlay-input" id="Grade"></td></tr>
+          <tr><td><div class="overlay-label overlay-cyn-func-test-failed">CYN FUNCTION TEST FAILED</div></td>
+            <td><input type="text" class="overlay-input" id="FunctionTest"></td></tr>
+          <tr><td><div class="overlay-label overlay-recd-qty">REC'D Q'TY</div></td>
+            <td><input type="text" class="overlay-input" id="RecdQty"></td></tr>
+          <tr><td><div class="overlay-label overlay-no-recd-qty">NO REC'D Q'TY</div></td>
+            <td><input type="text" class="overlay-input" id="NoRecdQty"></td></tr>
+          <tr><td><div class="overlay-label overlay-packing-slip-qty">PACKING SLIP Q'TY</div></td>
+            <td><input type="text" class="overlay-input" id="PackingSlipQty"></td></tr>
+          <tr><td><div class="overlay-label overlay-ship-load-packing-slip">SHIP LOAD PCKNG SLIP #</div></td>
+            <td><input type="text" class="overlay-input" id="ShipLoadPackingSlip"></td></tr>
+          <tr><td><div class="overlay-label overlay-ship-truck-load-num">SHIP TRUCK LOAD NUM (SOLD)</div></td>
+            <td><input type="text" class="overlay-input" id="ShipTruckLoadNum"></td></tr>
+          <tr><td><div class="overlay-label overlay-hold-not-sold">HOLD (NOT SOLD)</div></td>
+            <td><input type="text" class="overlay-input" id="Hold"></td></tr>
+          <tr><td><div class="overlay-label overlay-offer">OFFER</div></td>
+            <td><input type="text" class="overlay-input" id="Offer"></td></tr>
+          <tr><td><div class="overlay-label overlay-delivery-storage">DELIVERY/STORAGE</div></td>
+            <td><input type="text" class="overlay-input" id="DeliveryStorage"></td></tr>
+          <tr><td><div class="overlay-label overlay-warranty">WARRANTY</div></td>
+            <td><input type="text" class="overlay-input" id="Warranty"></td></tr>
+          <tr><td><div class="overlay-label overlay-cyn-prev-wh-loc">CYN PREV WH LOC</div></td>
+            <td><input type="text" class="overlay-input" id="CYNPrevWHLoc"></td></tr>
+          <tr><td><div class="overlay-label overlay-recd-truck-load-num">REC'D TRUCK LOAD NUM</div></td>
+            <td><input type="text" class="overlay-input" id="RecdTruckLoadNum"></td></tr>
+          <tr><td><div class="overlay-label overlay-recd-container-num">CONTAINER NUM</div></td>
+            <td><input type="text" class="overlay-input" id="RecdContainerNum"></td></tr>
+          <tr><td><div class="overlay-label overlay-recd-date">REC'D DATE</div></td>
+            <td><input type="text" class="overlay-input" id="RecdDate"></td></tr>
+          <tr><td><div class="overlay-label overlay-condition">CONDITION</div></td>
+            <td><input type="text" class="overlay-input" id="Condition"></td></tr>
+          <tr><td><div class="overlay-label overlay-purchased-pricing-rate">PURCHASED PRICING RATE</div></td>
+            <td><input type="text" class="overlay-input" id="PurchasedPricingRate"></td></tr>
+          <tr><td><div class="overlay-label overlay-lg-unit-price">LG UNIT PRICE</div></td>
+            <td><input type="text" class="overlay-input" id="UnitPrice"></td></tr>
+          <tr><td><div class="overlay-label overlay-lg-amount">LG AMOUNT</div></td>
+            <td><input type="text" class="overlay-input" id="LGAmount"></td></tr>
+          <tr><td><div class="overlay-label overlay-daeheung">DAEHEUNG $</div></td>
+            <td><input type="text" class="overlay-input" id="Daeheung"></td></tr>
+          <tr><td><div class="overlay-label overlay-cyn-cost">CYN COST $</div></td>
+            <td><input type="text" class="overlay-input" id="CYNCost"></td></tr>
+          <tr><td><div class="overlay-label overlay-vip-cost">VIP $</div></td>
+            <td><input type="text" class="overlay-input" id="VIPCost"></td></tr>
+          <tr><td><div class="overlay-label overlay-wholesale-cost">WHOLESALE $</div></td>
+            <td><input type="text" class="overlay-input" id="WholesaleCost"></td></tr>
+          <tr><td><div class="overlay-label overlay-original-market-cost">ORIGINAL MARKET $</div></td>
+            <td><input type="text" class="overlay-input" id="OriginalMarketCost"></td></tr>
+          <tr><td><div class="overlay-label overlay-price-off-rate">PRICE OFF RATE (%)</div></td>
+            <td><input type="text" class="overlay-input" id="PriceOffRate"></td></tr>
+          <tr><td><div class="overlay-label overlay-retail-cost">RETAIL $</div></td>
+            <td><input type="text" class="overlay-input" id="RetailCost"></td></tr>
+          <tr><td><div class="overlay-label overlay-sold-out-act-cost">SOLD OUT ACTUAL $</div></td>
+            <td><input type="text" class="overlay-input" id="SoldOutActCost"></td></tr>
+          <tr><td><div class="overlay-label overlay-invoice-num">INVOICE NUM</div></td>
+            <td><input type="text" class="overlay-input" id="InvoiceNum"></td></tr>
+          <tr><td><div class="overlay-label overlay-tf-po-num">TECFOREVER P.O. NUM</div></td>
+            <td><input type="text" class="overlay-input" id="PONum"></td></tr>
+          <tr><td><div class="overlay-label overlay-sold-out">SOLD OUT</div></td>
+            <td><input type="text" class="overlay-input" id="SoldOut"></td></tr>
+          <tr><td><div class="overlay-label overlay-remain">REMAIN</div></td>
+            <td><input type="text" class="overlay-input" id="Remain"></td></tr>
+        </table>
+      </div>
+      <div>
+        <button id="itemSold" class="overlay-btn">ITEM SOLD</button>
+        <button id="deleteItem" class="overlay-btn">DELETE ITEM</button>
+        <button id="cancelSave" class="overlay-btn">CANCEL</button>
+        <button id="saveToFirebase" class="overlay-btn">SAVE CHANGES</button>
+      </div>
+    </div>
   </div>
 
   <script src="../vendor/jquery/jquery.js"></script>
+  <script src="../vendor/jquery/popupoverlay.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.js"></script>
   <script lang="javascript" src="../vendor/node_modules/xlsx/dist/xlsx.core.min.js"></script>
 
