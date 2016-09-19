@@ -39,6 +39,10 @@ tabAv.addEventListener('click', function() {activateCategory('#av')});
 var tabTv = document.getElementById('tv');
 tabTv.addEventListener('click', function() {activateCategory('#tv')});
 
+document.getElementById('overlay-close-btn').addEventListener('click', function() {
+	$('#item-detail-popup').popup('hide');
+})
+
 inStockRef.orderByChild('datePosted').once('value').then(function(snapshot) {
 	snapshot.forEach(function(item) {
 		if (item.val().remain != null && parseInt(item.val().remain) > 0) {
@@ -119,6 +123,9 @@ function activateCategory(id) {
 var InventoryList = React.createClass({
 	render: function() {
 		var items = this.props.data.map(function(item) {
+			if (item.origMarketCost == null || item.retailCost == null) {
+				return;
+			}
 			return (
 				<Item data={item}/>
 			);
@@ -171,28 +178,36 @@ var Item = React.createClass({
 	},
 	render: function() {
 		var data = this.props.data;
+		var saveRate = 0;
+		if (data.origMarketCost != null && data.origMarketCost != typeof undefined 
+			&& data.retailCost != null && data.retailCost != typeof undefined) {
+			var saveRate = (parseFloat(data.origMarketCost.replace(/,/g, '')) - parseFloat(data.retailCost.replace(/,/g, ''))) / parseFloat(data.origMarketCost.replace(/,/g, '')) * 100;
+		}
+		var saleTag;
+		if (saveRate > 0) {
+			saleTag = "SAVE " + Math.round(saveRate) + "%";
+		}
 		return (
 			<div className="inventory-item col-md-3" onClick={this.handleClick.bind(this, data)}>
 				<div className="item-img">
 					<img src={data.imgSrc} width="auto" height="100%"/>
 				</div>
-				<table width="100%"><tr>
-					<td className="item-manufacturer">
-						<div>{data.manufacturer}</div>
-					</td>
-					<td className="item-model">
-						<div>{data.model}</div>
-					</td>
-				</tr></table>
-				<div className="item-desc">{data.desc}</div>
-				<div><table width="100%"><tr>
-					<td className="item-original-price">
-						<div>${data.origMarketCost}</div>
-					</td>
-					<td className="item-new-price">
-						<div>${data.retailCost}</div>
-					</td>
-				</tr></table></div>
+				<div className="sales-tag">{saleTag}</div>
+				<div className="item-price-info">
+					<table width="100%"><tr>
+						<td className="item-new-price">
+							<div>${data.retailCost}</div>
+						</td>
+						<td className="item-original-price">
+							<div>${data.origMarketCost}</div>
+						</td>
+					</tr></table>
+				</div>
+				<div>
+					<p className="item-manufacturer">{data.manufacturer}</p>
+					<p className="item-model"> - {data.model} - </p>
+					<p className="item-desc">{data.desc}</p>
+				</div>
 			</div>
 		);
 	}

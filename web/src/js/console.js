@@ -14,6 +14,10 @@ var fbInvSoldOutRef = firebase.database().ref('inventory/soldOut');
 var fbInvScrapRef = firebase.database().ref('inventory/scrap');
 var fbImgMapRef = firebase.database().ref('/imageMap');
 
+fbInvInStockRef.remove();
+fbInvSoldOutRef.remove();
+fbInvScrapRef.remove();
+
 window.onload = function() {
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (!user) {
