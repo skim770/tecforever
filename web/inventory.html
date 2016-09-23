@@ -15,6 +15,7 @@
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>
+  <script src="src/js/inventory-firebase.js"></script>
 
   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue_grey-red.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -36,7 +37,6 @@
       </div>
       <div class="content-header">
         <ul class="nav navbar-nav">
-          <li><a id="new" class="nav-cat new-arrivals">New Arrivals</a></li>
           <li><a id="ref" class="nav-cat">Refrigerators</a></li>
           <li><a id="wd" class="nav-cat">Washers &amp; Dryers</a></li>
           <li><a id="dw" class="nav-cat">Dishwashers</a></li>
@@ -49,7 +49,7 @@
   </nav>
 
   <div id="wrapper">
-    <div id="sidebar-wrapper" class="none">
+    <div id="sidebar-wrapper">
       <div id="ref-filters" class="is-hidden">
         <h5 class="sidebar-title">Refrigerator Type</h5>
         <ul class="sidebar-nav navbar-offset">
@@ -90,12 +90,6 @@
           <li><input type="checkbox" class="filled-in" id="ref-smooth-white"/> Smooth White</li>
           <li><input type="checkbox" class="filled-in" id="ref-stainless-steel"/> Stainless Steel</li>
           <li><input type="checkbox" class="filled-in" id="ref-smooth-black"/> Smooth Black</li>
-        </ul>
-        <h5 class="sidebar-title">Sort By Price</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input class="with-gap" name="ref-prices" type="radio" id="ref-least-to-most"/> Least to Most</li>
-          <li><input class="with-gap" name="ref-prices" type="radio" id="ref-most-to-least"/> Most to Least</li>
-          <li><input class="with-gap" name="ref-prices" type="radio" id="ref-any-price" checked/> Any</li>
         </ul>
       </div>
       <div id="wd-filters" class="is-hidden">
@@ -139,12 +133,6 @@
           <li><input type="checkbox" class="filled-in" id="wash-silver"/> Silver</li>
           <li><input type="checkbox" class="filled-in" id="wash-white"/> White</li>
         </ul>
-        <h5 class="sidebar-title">Sort Washers By Price</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input class="with-gap" name="washer-prices" type="radio" id="wash-least-to-most"/> Least to Most</li>
-          <li><input class="with-gap" name="washer-prices" type="radio" id="wash-most-to-least"/> Most to Least</li>
-          <li><input class="with-gap" name="washer-prices" type="radio" id="wash-any-price" checked/> Any</li>
-        </ul>
         <h5 class="sidebar-title">Dryer Type</h5>
         <ul class="sidebar-nav navbar-offset">
           <li><input type="checkbox" class="filled-in" id="dry-electric"/> Electric</li>
@@ -165,12 +153,6 @@
           <li><input type="checkbox" class="filled-in" id="dry-27-inch"/> 27"</li>
           <li><input type="checkbox" class="filled-in" id="dry-29-inch"/> 29" and Wider</li>
         </ul>
-        <h5 class="sidebar-title">Sort Dryers By Price</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input class="with-gap" name="dryer-prices" type="radio" id="dry-least-to-most"/> Least to Most</li>
-          <li><input class="with-gap" name="dryer-prices" type="radio" id="dry-most-to-least"/> Most to Least</li>
-          <li><input class="with-gap" name="dryer-prices" type="radio" id="dry-any-price" checked/> Any</li>
-        </ul>
       </div>
       <div id="dw-filters" class="is-hidden">
         <h5 class="sidebar-title">Dishwasher Style</h5>
@@ -188,12 +170,6 @@
         <h5 class="sidebar-title">Dishwasher Optional</h5>
         <ul class="sidebar-nav navbar-offset">
           <li><input type="checkbox" class="filled-in" id="dw-lg-studio"/> LG Studio</li>
-        </ul>
-        <h5 class="sidebar-title">Sort By Price</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input class="with-gap" name="dw-prices" type="radio" id="dw-least-to-most"/> Least to Most</li>
-          <li><input class="with-gap" name="dw-prices" type="radio" id="dw-most-to-least"/> Most to Least</li>
-          <li><input class="with-gap" name="dw-prices" type="radio" id="dw-any-price" checked/> Any</li>
         </ul>
       </div>
       <div id="cooking-filters" class="is-hidden">
@@ -224,12 +200,6 @@
           <li><input type="checkbox" class="filled-in" id="cooking-smooth-black"/> Smooth Black</li>
           <li><input type="checkbox" class="filled-in" id="cooking-smooth-white"/> Smooth White</li>
           <li><input type="checkbox" class="filled-in" id="cooking-black-stainless-steel"/> Black Stainless Steel</li>
-        </ul>
-        <h5 class="sidebar-title">Sort By Price</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input class="with-gap" name="cooking-prices" type="radio" id="cooking-least-to-most"/> Least to Most</li>
-          <li><input class="with-gap" name="cooking-prices" type="radio" id="cooking-most-to-least"/> Most to Least</li>
-          <li><input class="with-gap" name="cooking-prices" type="radio" id="cooking-any-price" checked/> Any</li>
         </ul>
       </div>
       <div id="av-filters" class="is-hidden">
@@ -272,15 +242,18 @@
           <li><input class="with-gap" name="tv-size" type="radio" id="tv-largest-to-smallest"/> Biggest to Smallest</li>
           <li><input class="with-gap" name="tv-size" type="radio" id="tv-any-size"/> Any Size</li>
         </ul>
-        <h5 class="sidebar-title">Sort By Price</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input class="with-gap" name="tv-prices" type="radio" id="tv-least-to-most"/> Least to Most</li>
-          <li><input class="with-gap" name="tv-prices" type="radio" id="tv-most-to-least"/> Most to Least</li>
-          <li><input class="with-gap" name="tv-prices" type="radio" id="tv-any-price" checked/> Any</li>
-        </ul>
       </div>
     </div>
     <div id="page-content-wrapper">
+      <div class="sort-by-group">
+        Sort By  
+        <button id="sort-btn" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Newest Arrivals <i class="material-icons" style="float:right;">expand_more</i></button>
+        <div class="dropdown-menu">
+          <button id="sort-Newest" class="dropdown-item">Newest Arrivals</button>
+          <button id="sort-LowToHigh" class="dropdown-item">Price: Low to High</button>
+          <button id="sort-HighToLow" class="dropdown-item">Price: High to Low</button>
+        </div>
+    </div>
       <div id="inventory_container" class="content-container"></div>
     </div>
     <div id="item-detail-popup" class="overlay-popup none">
