@@ -9,9 +9,6 @@
 
   <title>TecForever</title>
 
-  <script src="https://npmcdn.com/react@15.3.1/dist/react.min.js"></script>
-  <script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.min.js"></script>
-  <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>
@@ -19,16 +16,15 @@
 
   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue_grey-red.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <link href="vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
-  <link href="css/creative.css" rel="stylesheet">
-  <link href="css/inventory.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="css/creative.css">
+  <link rel="stylesheet" href="css/inventory.css">
 </head>
 
 <body id="page-top">
   <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header navbar-inventory">
         <ul class="nav navbar-nav navbar-left">
           <li><a class="navbar-inventory-brand page-scroll" href="index.html">TecForever</a></li>
@@ -50,199 +46,12 @@
 
   <div id="wrapper">
     <div id="sidebar-wrapper">
-      <div id="ref-filters" class="is-hidden">
-        <h5 class="sidebar-title">Refrigerator Type</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="ref-french-three-door"/> French 3-Door</li>
-          <li><input type="checkbox" class="filled-in" id="ref-french-four-door"/> French 4-Door</li>
-          <li><input type="checkbox" class="filled-in" id="ref-side-by-side"/> Side-by-Side</li>
-          <li><input type="checkbox" class="filled-in" id="ref-bottom-freezer"/> Bottom Freezer</li>
-          <li><input type="checkbox" class="filled-in" id="ref-top-mount-freezer"/> Top Mount Freezer</li>
-        </ul>
-        <h5 class="sidebar-title">Refrigerator Fit Width</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="ref-24-inch"/> 24"</li>
-          <li><input type="checkbox" class="filled-in" id="ref-30-inch"/> 30"</li>
-          <li><input type="checkbox" class="filled-in" id="ref-33-inch"/> 33"</li>
-          <li><input type="checkbox" class="filled-in" id="ref-36-inch"/> 36"</li>
-          <li><input type="checkbox" class="filled-in" id="ref-42-inch"/> 42"</li>
-        </ul>
-        <h5 class="sidebar-title">Capacity</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="ref-super-cap"/> Super 30-31 cu.ft.</li>
-          <li><input type="checkbox" class="filled-in" id="ref-ultra-cap"/> Ultra-Large 25-29 cu.ft.</li>
-          <li><input type="checkbox" class="filled-in" id="ref-large-cap"/> Large 20-24 cu.ft.</li>
-          <li><input type="checkbox" class="filled-in" id="ref-under-cap"/> Under 19 cu.ft.</li>
-        </ul>
-        <h5 class="sidebar-title">Features/Style</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="ref-counter-depth"/> Counter Depth</li>
-          <li><input type="checkbox" class="filled-in" id="ref-ice-water-dispenser"/> Ice &amp; Water Dispenser</li>
-          <li><input type="checkbox" class="filled-in" id="ref-lg-studio"/> LG Studio</li>
-          <li><input type="checkbox" class="filled-in" id="ref-energy-star"/> ENERGY STAR&reg; Qualified</li>
-          <li><input type="checkbox" class="filled-in" id="ref-door-in-door"/> Door-in-Door&reg;</li>
-        </ul>
-        <h5 class="sidebar-title">Color</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="ref-black-stainless-steel"/> Black Stainless Steel</li>
-          <li><input type="checkbox" class="filled-in" id="ref-platinum-silver"/> Platinum Silver</li>
-          <li><input type="checkbox" class="filled-in" id="ref-stainless-vcm"/> Stainless VCM</li>
-          <li><input type="checkbox" class="filled-in" id="ref-smooth-white"/> Smooth White</li>
-          <li><input type="checkbox" class="filled-in" id="ref-stainless-steel"/> Stainless Steel</li>
-          <li><input type="checkbox" class="filled-in" id="ref-smooth-black"/> Smooth Black</li>
-        </ul>
-      </div>
-      <div id="wd-filters" class="is-hidden">
-        <h5 class="sidebar-title">Washer Category</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="wash-front-loader"/> Front Loader</li>
-          <li><input type="checkbox" class="filled-in" id="wash-top-loader"/> Top Loader</li>
-          <li><input type="checkbox" class="filled-in" id="wash-front-control-top-loader"/> Front Control Top Loader</li>
-          <li><input type="checkbox" class="filled-in" id="wash-compact-front-loader"/> Compact Front Loader</li>
-          <li><input type="checkbox" class="filled-in" id="wash-sidekick"/> SideKick&trade;</li>
-        </ul>
-        <h5 class="sidebar-title">Washer Optional Features</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="wash-turbowash"/> TurboWash&trade;</li>
-          <li><input type="checkbox" class="filled-in" id="wash-steam"/> Steam&trade;</li>
-          <li><input type="checkbox" class="filled-in" id="wash-stackable"/> Stackable</li>
-          <li><input type="checkbox" class="filled-in" id="wash-twin-wash"/> TwinWash&trade; Compatible</li>
-          <li><input type="checkbox" class="filled-in" id="wash-wifi-comp"/> WiFi Compatible</li>
-          <li><input type="checkbox" class="filled-in" id="wash-energy-star"/> ENERGY STAR&reg; Qualified</li>
-          <li><input type="checkbox" class="filled-in" id="wash-most-efficient"/> Energy Star&reg; MOST EFFICIENT</li>
-        </ul>
-        <h5 class="sidebar-title">Washer Capacity</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="wash-cap-less"/> 4.1 cu.ft. or less</li>
-          <li><input type="checkbox" class="filled-in" id="wash-cap-sm"/> 4.2 cu.ft. - 4.6 cu.ft.</li>
-          <li><input type="checkbox" class="filled-in" id="wash-cap-lg"/> 4.7 cu.ft. - 5.1 cu.ft.</li>
-          <li><input type="checkbox" class="filled-in" id="wash-cap-more"/> 5.2 cu.ft. or more</li>
-        </ul>
-        <h5 class="sidebar-title">Washer Dimension</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="wash-24-inch"/> 24"</li>
-          <li><input type="checkbox" class="filled-in" id="wash-25-inch"/> 25"</li>
-          <li><input type="checkbox" class="filled-in" id="wash-27-inch"/> 27"</li>
-          <li><input type="checkbox" class="filled-in" id="wash-29-inch"/> 29" and Wider</li>
-        </ul>
-        <h5 class="sidebar-title">Washer Color</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="wash-black-stainless-steel"/> Black Stainless Steel</li>
-          <li><input type="checkbox" class="filled-in" id="wash-graphite-steel"/> Graphite Steel</li>
-          <li><input type="checkbox" class="filled-in" id="wash-wild-cherry"/> Wild Cherry Red</li>
-          <li><input type="checkbox" class="filled-in" id="wash-silver"/> Silver</li>
-          <li><input type="checkbox" class="filled-in" id="wash-white"/> White</li>
-        </ul>
-        <h5 class="sidebar-title">Dryer Type</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="dry-electric"/> Electric</li>
-          <li><input type="checkbox" class="filled-in" id="dry-gas"/> Gas</li>
-        </ul>
-        <h5 class="sidebar-title">Dryer Optional Features</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="dry-steamdryer"/> SteamDryer&trade;</li>
-          <li><input type="checkbox" class="filled-in" id="dry-stackable"/> Stackable</li>
-          <li><input type="checkbox" class="filled-in" id="dry-heat-pump"/> Heat Pump</li>
-          <li><input type="checkbox" class="filled-in" id="dry-ventless-condensing"/> Ventless Condensing</li>
-          <li><input type="checkbox" class="filled-in" id="dry-easy-load"/> EasyLoad&trade;</li>
-          <li><input type="checkbox" class="filled-in" id="dry-wifi-capable"/> WiFi Capable</li>
-        </ul>
-        <h5 class="sidebar-title">Dryer Dimension</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="dry-24-inch"/> 24"</li>
-          <li><input type="checkbox" class="filled-in" id="dry-27-inch"/> 27"</li>
-          <li><input type="checkbox" class="filled-in" id="dry-29-inch"/> 29" and Wider</li>
-        </ul>
-      </div>
-      <div id="dw-filters" class="is-hidden">
-        <h5 class="sidebar-title">Dishwasher Style</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="dw-top-control"/> Top Control</li>
-          <li><input type="checkbox" class="filled-in" id="dw-front-control"/> Front Control</li>
-        </ul>
-        <h5 class="sidebar-title">Color</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="dw-black"/> Black</li>
-          <li><input type="checkbox" class="filled-in" id="dw-white"/> White</li>
-          <li><input type="checkbox" class="filled-in" id="dw-stainless-steel"/> Stainless Steel</li>
-          <li><input type="checkbox" class="filled-in" id="dw-black-stainless-steel"/> Black Stainless Steel</li>
-        </ul>
-        <h5 class="sidebar-title">Dishwasher Optional</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="dw-lg-studio"/> LG Studio</li>
-        </ul>
-      </div>
-      <div id="cooking-filters" class="is-hidden">
-        <h5 class="sidebar-title">Cooking Type</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="cooking-gas-range"/> Gas Range</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-electric-range"/> Electric Range</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-double-wall-ovens"/> Double Wall Ovens</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-single-wall-ovens"/> Single Wall Ovens</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-gas-cooktops"/> Gas Cooktops</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-radiant-cooktops"/> Radiant Cooktops</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-countertop-microwave"/> Countertop Microwave</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-over-range-microwave"/> Over the Range Microwave</li>
-        </ul>
-        <h5 class="sidebar-title">Oven Type</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="cooking-single"/> Single</li>
-        </ul>
-        <h5 class="sidebar-title">Features/Style</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="cooking-probake-conv"/> ProBake Convection&trade;</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-easyclean"/> EasyClean&trade;</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-convection"/> Convection</li>
-        </ul>
-        <h5 class="sidebar-title">Color</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="cooking-stainless-steel"/> Stainless Steel</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-smooth-black"/> Smooth Black</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-smooth-white"/> Smooth White</li>
-          <li><input type="checkbox" class="filled-in" id="cooking-black-stainless-steel"/> Black Stainless Steel</li>
-        </ul>
-      </div>
-      <div id="av-filters" class="is-hidden">
-        <h5 class="sidebar-title">Audio</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="av-wireless-speakers"/> Wireless Speakers</li>
-          <li><input type="checkbox" class="filled-in" id="av-sound-bar-soundplates"/> Sound Bars &amp; SoundPlates</li>
-          <li><input type="checkbox" class="filled-in" id="av-shelf-stereo"/> Shelf Stereo Systems</li>
-          <li><input type="checkbox" class="filled-in" id="av-portable-bluetooth-speakers"/> Portable Bluetooth Speakers</li>
-          <li><input type="checkbox" class="filled-in" id="av-docking-stations"/> Docking Stations</li>
-          <li><input type="checkbox" class="filled-in" id="av-home-theater"/> Home Theater Systems</li>
-        </ul>
-        <h5 class="sidebar-title">Video</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="av-blu-ray"/> Blu-ray Players</li>
-          <li><input type="checkbox" class="filled-in" id="av-dvd"/> DVD Players</li>
-          <li><input type="checkbox" class="filled-in" id="av-projector"/> Projectors</li>
-        </ul>
-      </div>
-      <div id="tv-filters" class="is-hidden">
-        <h5 class="sidebar-title">LG SIGNATURE</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="tv-signature"/> LG SIGNATURE</li>
-        </ul>
-        <h5 class="sidebar-title">Display Type</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="tv-led"/> LED TV</li>
-          <li><input type="checkbox" class="filled-in" id="tv-smart"/> SMART TV</li>
-          <li><input type="checkbox" class="filled-in" id="tv-4k-ultra-hd"/> 4K Ultra HD TV</li>
-          <li><input type="checkbox" class="filled-in" id="tv-oled"/> OLED TV</li>
-          <li><input type="checkbox" class="filled-in" id="tv-3d"/> 3D TV</li>
-        </ul>
-        <h5 class="sidebar-title">Optional Features</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input type="checkbox" class="filled-in" id="tv-energy-star"/> ENERGY STAR&reg; Qualified</li>
-        </ul>
-        <h5 class="sidebar-title">Sort By Screen Size</h5>
-        <ul class="sidebar-nav navbar-offset">
-          <li><input class="with-gap" name="tv-size" type="radio" id="tv-smallest-to-largest"/> Smallest to Biggest</li>
-          <li><input class="with-gap" name="tv-size" type="radio" id="tv-largest-to-smallest"/> Biggest to Smallest</li>
-          <li><input class="with-gap" name="tv-size" type="radio" id="tv-any-size"/> Any Size</li>
-        </ul>
-      </div>
+      <div id="ref-filters" class="is-hidden"></div>
+      <div id="wd-filters" class="is-hidden"></div>
+      <div id="dw-filters" class="is-hidden"></div>
+      <div id="cooking-filters" class="is-hidden"></div>
+      <div id="av-filters" class="is-hidden"></div>
+      <div id="tv-filters" class="is-hidden"></div>
     </div>
     <div id="page-content-wrapper">
       <div class="sort-by-group">
@@ -302,14 +111,25 @@
     </div>
   </div>
 
+  <script src="https://npmcdn.com/react@15.3.1/dist/react.min.js"></script>
+  <script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.min.js"></script>
+  <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
   <script src="vendor/jquery/jquery.js"></script>
   <script src="vendor/jquery/popupoverlay.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.js"></script>
 
+  <script>
+    $(function(){
+      $("#ref-filters").load("src/embedded-html/refrigerator-filters.html");
+      $("#wd-filters").load("src/embedded-html/washer-dryer-filters.html");
+      $("#dw-filters").load("src/embedded-html/dishwasher-filters.html");
+      $("#cooking-filters").load("src/embedded-html/cooktop-filters.html");
+      $("#av-filters").load("src/embedded-html/audio-video-filters.html");
+      $("#tv-filters").load("src/embedded-html/television-filters.html");
+    });
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-  <script src="vendor/scrollreveal/scrollreveal.js"></script>
-  <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
-  <script src="src/js/creative.js"></script>
   <script type="text/babel" src="src/js/inventory.js"></script>
   <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
 </body>

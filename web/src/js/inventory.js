@@ -1,49 +1,36 @@
+fetchFirebaseData('datePosted', 'descend');
 
-var xmlHttpReq = new XMLHttpRequest();
-var categories = ['#ref', '#wd', '#dw', '#cooking', '#av', '#tv'];
-var currentCategory = '#ref';
-var itemsNew = [];
-var itemsRef = [];
-var itemsWd = [];
-var itemsDw = [];
-var itemsCooking = [];
-var itemsAv = [];
-var itemsTv = [];
+var categories = {ref:[], wd:[], dw:[], cooking:[], av:[], tv:[]};
+var currentCategory = 'ref';
 
-var tabRef = document.getElementById('ref');
-tabRef.addEventListener('click', function() {activateCategory('#ref')});
-var tabWd = document.getElementById('wd');
-tabWd.addEventListener('click', function() {activateCategory('#wd')});
-var tabDw = document.getElementById('dw');
-tabDw.addEventListener('click', function() {activateCategory('#dw')});
-var tabCooking = document.getElementById('cooking');
-tabCooking.addEventListener('click', function() {activateCategory('#cooking')});
-var tabAv = document.getElementById('av');
-tabAv.addEventListener('click', function() {activateCategory('#av')});
-var tabTv = document.getElementById('tv');
-tabTv.addEventListener('click', function() {activateCategory('#tv')});
+/*
+ * Initialize click listeners for UI components.
+ */
+document.getElementById('ref').addEventListener('click', function() { activateCategory('ref') });
+document.getElementById('wd').addEventListener('click', function() { activateCategory('wd') });
+document.getElementById('dw').addEventListener('click', function() { activateCategory('dw') });
+document.getElementById('cooking').addEventListener('click', function() { activateCategory('cooking') });
+document.getElementById('av').addEventListener('click', function() { activateCategory('av') });
+document.getElementById('tv').addEventListener('click', function() { activateCategory('tv') });
+document.getElementById('overlay-close-btn').addEventListener('click', function() {$('#item-detail-popup').popup('hide');});
 
-var sortBtn = document.getElementById('sort-btn');
-var sortNew = document.getElementById('sort-Newest');
-sortNew.addEventListener('click', function() {
+document.getElementById('sort-Newest').addEventListener('click', function() {
 	fetchFirebaseData('datePosted', 'descend');
 	$("#sort-btn").html("Newest Arrivals <i class=\"material-icons\" style=\"float:right;\">expand_more</i>");
 });
-var sortLow = document.getElementById('sort-LowToHigh');
-sortLow.addEventListener('click', function() {
+document.getElementById('sort-LowToHigh').addEventListener('click', function() {
 	fetchFirebaseData('retailCost', 'ascend');
 	$("#sort-btn").html("Price: Low to High <i class=\"material-icons\" style=\"float:right;\">expand_more</i>");
 });
-var sortHigh = document.getElementById('sort-HighToLow');
-sortHigh.addEventListener('click', function() {
+document.getElementById('sort-HighToLow').addEventListener('click', function() {
 	fetchFirebaseData('retailCost', 'descend');
 	$("#sort-btn").html("Price: High to Low <i class=\"material-icons\" style=\"float:right;\">expand_more</i>");
 });
 
-document.getElementById('overlay-close-btn').addEventListener('click', function() {
-	$('#item-detail-popup').popup('hide');
-});
-
+/*
+ * Called when "Sort by" component is changed.
+ * Re-fetches from Firebase in correct order.
+ */
 function sortItems(sender) {
 	switch (sender) {
 		case 'lowToHigh':
@@ -60,15 +47,8 @@ function sortItems(sender) {
 	}
 }
 
-fetchFirebaseData('datePosted', 'descend');
 function fetchFirebaseData(orderAttr, order) {
-	itemsNew = [];
-	itemsRef = [];
-	itemsWd = [];
-	itemsDw = [];
-	itemsCooking = [];
-	itemsAv = [];
-	itemsTv = [];
+	categories = {ref:[], wd:[], dw:[], cooking:[], av:[], tv:[]};
 
 	inStockRef.orderByChild(orderAttr).once('value').then(function(snapshot) {
 		snapshot.forEach(function(item) {
@@ -78,69 +58,104 @@ function fetchFirebaseData(orderAttr, order) {
 				
 				var type = item.val().inventoryType.toUpperCase();
 				if (type.includes("RF") || type.includes("REF")) {
-					itemsRef.push(itemClone);
+					categories.ref.push(itemClone);
 				} else if (type.includes("WASH") || type.includes("DRYER") || type.includes("PEDESTAL")) {
-					itemsWd.push(itemClone);
+					categories.wd.push(itemClone);
 				} else if (type.includes("DISHW")) {
-					itemsDw.push(itemClone);
+					categories.dw.push(itemClone);
 				} else if (type.includes("RANG") || type.includes("COOKTOP") || type.includes("OVEN") || type.includes("STOVE") || type.includes("MICRW")) {
-					itemsCooking.push(itemClone);
+					categories.cooking.push(itemClone);
 				} else if (type.includes("DVD") || type.includes("SOUND") || type.includes("AUDIO") || type.includes("PROJECTOR") || type.includes("THEATER")) {
-					itemsAv.push(itemClone);
+					categories.av.push(itemClone);
 				} else if (type.includes("TV")) {
-					itemsTv.push(itemClone);
+					categories.tv.push(itemClone);
 				}
-				itemsNew.push(itemClone);
 			}
 		});
 		if (order == 'descend') {
-			itemsNew.reverse();
-			itemsRef.reverse();
-			itemsWd.reverse();
-			itemsDw.reverse();
-			itemsCooking.reverse();
-			itemsAv.reverse();
-			itemsTv.reverse();
+			for (var key in categories) {
+				categories[key].reverse();
+			}
 		}
 		activateCategory(currentCategory);
 	});
 }
 
+/*
+ * Called when a category is changed. Re-renders DOM accordingly.
+ * id - Category (i.e. ref, wd, etc)
+ */
 function activateCategory(id) {
-	categories.forEach(function(category) {
-		if (id === category) {
-			$(category).addClass('active');
-			$(category + "-filters").removeClass('is-hidden');
+	for (var key in categories) {
+		if (id === key) {
+			$("#" + key).addClass('active');
+			$("#" + key + "-filters").removeClass('is-hidden');
 		} else {
-			$(category).removeClass('active');
-			$(category + "-filters").addClass('is-hidden');
+			$("#" + key).removeClass('active');
+			$("#" + key + "-filters").addClass('is-hidden');
 		}
-	});
-	switch(id) {
-		case '#ref':
-			renderDOM(itemsRef);
-			break;
-		case '#wd':
-			renderDOM(itemsWd);
-			break;
-		case '#dw':
-			renderDOM(itemsDw);
-			break;
-		case '#cooking':
-			renderDOM(itemsCooking);
-			break;
-		case '#av':
-			renderDOM(itemsAv);
-			break;
-		case '#tv':
-			renderDOM(itemsTv);
-			break;
-		default:
-			renderDOM(itemsOthers);	
 	}
 	currentCategory = id;
+	filterInventory();
 }
 
+/*
+ * Define Filtering behavior with checkbox change event
+ */
+$(':checkbox').change(function() { filterInventory() });
+function filterInventory() {
+	var allUnchecked = true;
+	var filterCondition = "";
+	var subCondition = "";
+	var unitCondition = "";
+	var filterCBs = $("#" + currentCategory + "-filters").find($("div.panel-body"));
+
+	for (var i = 0; i < filterCBs.length; i++) {
+		var subFilterCBs = jQuery(filterCBs[i]).find($(":checkbox"));
+		for (var j = 0; j < subFilterCBs.length; j++) {
+			var elmComp = subFilterCBs[j].id.split("-");
+			if (subFilterCBs[j].checked) {
+				subCondition = "";
+				for (var k = 2; k < elmComp.length; k++) {
+					if (elmComp[k].includes("!")) {
+						subCondition += " && !desc.includes('" + elmComp[k].substring(1) + "')";
+					} else if (elmComp[k].includes("+")) {
+						unitCondition = "";
+						var units = elmComp[k].split("+");
+						for (var l = 0; l < units.length; l++) {
+							unitCondition += " || desc.includes('" + units[l] + "')";
+						}
+						subCondition += " && (" + unitCondition.substring(4) + ")";
+					} else {
+						subCondition += " && desc.includes('" + elmComp[k] + "')";
+					}
+				}
+				filterCondition += " || (" + subCondition.substring(4) + ")";
+				allUnchecked = false;
+			}
+		}
+	}
+
+	if (allUnchecked) {
+		renderDOM(categories[currentCategory]);
+	} else {
+		filterCondition = filterCondition.substring(4);
+		var filteredList = categories[currentCategory].filter(filterRules);
+		renderDOM(filteredList);
+	}
+
+	function filterRules(item) {
+		console.log(filterCondition);
+		if (item.desc) {
+			var desc = item.desc.toLowerCase();
+			if (eval(filterCondition)) return item;
+		}
+	}
+}
+
+// ****************************************************************************
+// ************************  JSX for React components  ************************
+// ****************************************************************************
 var InventoryList = React.createClass({
 	render: function() {
 		var items = this.props.data.map(function(item) {
@@ -205,9 +220,8 @@ var Item = React.createClass({
 			var saveRate = (data.origMarketCost - data.retailCost) / data.origMarketCost * 100;
 		}
 		var saleTag;
-		if (saveRate > 0) {
+		if (saveRate > 0)
 			saleTag = "SAVE " + Math.round(saveRate) + "%";
-		}
 		return (
 			<div className="inventory-item col-md-3" onClick={this.handleClick.bind(this, data)}>
 				<div className="item-img">
