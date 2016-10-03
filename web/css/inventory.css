@@ -14,6 +14,7 @@ body {
 .navbar-inventory-brand {
 	color: #2196F3 !important;
 	font-size: 21px !important;
+	float: left;
 }
 .navbar-inventory-title {
 	font-size: 15px;
@@ -125,12 +126,18 @@ h5.sidebar-title {
 	border-bottom-style: solid;
 	border-bottom-color: #2196F3;
 }
+.sort-by-label {
+	float: left;
+	font-size: 15px;
+	color: rgba(0, 0, 0, 0.5);
+	margin-top: 4px;
+	margin-right: 10px;
+}
 .sort-by-group {
 	margin-top: 10px;
 	margin-bottom: 20px;
 	margin-left: 50px;
 	margin-right: 50px;
-
 }
 .panel-group {
 	margin-bottom: 0px !important;
@@ -152,9 +159,9 @@ h5.sidebar-title {
 }
 .dropdown-menu {
 	border-radius: 1px;
-	width: 100px;
-	left: 98px;
-	top: -5px;
+	width: 180px;
+	left: 109px;
+	top: -2px;
 	-webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -175,6 +182,7 @@ h5.sidebar-title {
 
 #content-container {
 	top: 100px;
+	width: 100%;
 }
 .inventory-item {
 	height: 405px;
@@ -211,7 +219,7 @@ h5.sidebar-title {
 	left: 20px;
 	float: left;
 	color: #E8EAF6;
-	z-index: 10;
+	z-index: 8;
 	font-size: 12px;
 }
 .item-manufacturer {
@@ -418,4 +426,120 @@ h5.sidebar-title {
 }
 .new_inventory_item table {
   min-height: 50px;
+}
+
+@media (max-width: 480px) {
+	body {
+		background-color: rgb(250, 250, 250);
+	}
+	.navbar-nav {
+		margin: 0 !important;
+		z-index: 10;
+	}
+	.navbar-header {
+		margin: 0 !important;
+		height: 75px;
+		box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.15);
+	}
+	.navbar-inventory-title {
+		padding: 9px 15px !important;
+	}
+	.navbar-toggle {
+		border: 0.5px solid rgba(0, 0, 0, 0.1);
+		border-radius: 0px !important;
+		margin: 0px 0px !important;
+		width: 50%;
+		-webkit-transition: all 0.5s ease;
+	  -moz-transition: all 0.5s ease;
+	  -o-transition: all 0.5s ease;
+	  transition: all 0.5s ease;
+	}
+	#mobileNavCat {
+		float: left;
+	}
+	#mobileNavFilter {
+		float: right;
+	}
+	.navbar-collapse {
+		margin: 0px !important;
+		-webkit-transition: all 0.5s ease;
+	  -moz-transition: all 0.5s ease;
+	  -o-transition: all 0.5s ease;
+	  transition: all 0.5s ease;
+	}
+	.content-header {
+		top: 75px;
+		width: 100%;
+		height: auto !important;
+		-webkit-transition: all 0.2s ease;
+	  -moz-transition: all 0.2s ease;
+	  -o-transition: all 0.2s ease;
+	  transition: all 0.2s ease;
+	}
+	.nav-cat {
+		margin: 10px 15px !important;
+	}
+	#wrapper {
+		background-color: rgb(250, 250, 250);
+		margin-top: 76px !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+	#page-content-wrapper {
+		max-width: 100% !important;
+	}
+	.sort-by-label {
+		float:left;
+		font-size:12px;
+		color:gray;
+		margin: 0px;
+	}
+	.sort-by-group {
+		background-color: rgb(250, 250, 250);
+		margin: 10px !important;
+		text-align: center;
+	}
+	#sort-btn {
+		width: calc(100% - 80px);
+	}
+	.dropdown-menu {
+		top: 84px;
+		left: 69px;
+		width: calc(100% - 99px);
+	}
+	.dropdown-item {
+		padding: 15px 0px !important;
+	}
+	#sidebar-wrapper {
+		position: fixed;
+		top: 75px;
+		width: 100%;
+		height: auto;
+		z-index: 9;
+	}
+	.inventory-list {
+		background-color: rgb(250, 250, 250) !important;
+		max-width: 100% !important;
+		padding: 3px 0px !important;
+		border-top: 1px solid rgba(0, 0, 0, 0.05);
+	}
+	.inventory-item {
+		background-color: white;
+		max-width: calc(100% - 20px) !important;
+		height: auto !important;
+		margin: 10px !important;
+		padding: 10px !important;
+		box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.08);
+	}
+	.overlay-popup {
+		background-color: white;
+		margin: 5px;
+		padding: 5px;
+		width: calc(100% - 10px);
+		border-radius: 4px;
+		transition: all 0.3s;
+	}
+	#Description {
+		font-size: 18px;
+	}
 }

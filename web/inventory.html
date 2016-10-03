@@ -30,8 +30,14 @@
           <li><a class="navbar-inventory-brand page-scroll" href="index.html">TecForever</a></li>
           <li><p class="navbar-inventory-title">Inventory</p></li>
         </ul>
+        <button id="mobileNavCat" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#tf-nav-collapse">
+          <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i> Appliances
+        </button>
+        <button id="mobileNavFilter" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-wrapper">
+          <span class="sr-only">Toggle navigation</span>Filters <i class="fa fa-bars"></i>
+        </button>
       </div>
-      <div class="content-header">
+      <div class="content-header collapse navbar-collapse" id="tf-nav-collapse">
         <ul class="nav navbar-nav">
           <li><a id="ref" class="nav-cat">Refrigerators</a></li>
           <li><a id="wd" class="nav-cat">Washers &amp; Dryers</a></li>
@@ -55,7 +61,7 @@
     </div>
     <div id="page-content-wrapper">
       <div class="sort-by-group">
-        Sort By  
+        <p class="sort-by-label">Sort By</p>
         <button id="sort-btn" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Newest Arrivals <i class="material-icons" style="float:right;">expand_more</i></button>
         <div class="dropdown-menu">
           <button id="sort-Newest" class="dropdown-item">Newest Arrivals</button>

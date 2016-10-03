@@ -1,3 +1,4 @@
+var init_load = true;
 fetchFirebaseData('datePosted', 'descend');
 
 var categories = {ref:[], wd:[], dw:[], cooking:[], av:[], tv:[]};
@@ -106,8 +107,6 @@ $(':checkbox').change(function() { filterInventory() });
 function filterInventory() {
 	var allUnchecked = true;
 	var filterCondition = "";
-	var subCondition = "";
-	var unitCondition = "";
 	var filterCBs = $("#" + currentCategory + "-filters").find($("div.panel-body"));
 
 	for (var i = 0; i < filterCBs.length; i++) {
@@ -115,12 +114,12 @@ function filterInventory() {
 		for (var j = 0; j < subFilterCBs.length; j++) {
 			var elmComp = subFilterCBs[j].id.split("-");
 			if (subFilterCBs[j].checked) {
-				subCondition = "";
+				var subCondition = "";
 				for (var k = 2; k < elmComp.length; k++) {
 					if (elmComp[k].includes("!")) {
 						subCondition += " && !desc.includes('" + elmComp[k].substring(1) + "')";
 					} else if (elmComp[k].includes("+")) {
-						unitCondition = "";
+						var unitCondition = "";
 						var units = elmComp[k].split("+");
 						for (var l = 0; l < units.length; l++) {
 							unitCondition += " || desc.includes('" + units[l] + "')";
