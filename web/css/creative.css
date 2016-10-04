@@ -57,7 +57,7 @@ p {
 }
 .text-muted {
   color: rgb(150, 150, 150);
-  font-size: 12px;
+  font-size: 14px;
 }
 .company-desc {
   font-size: 18px;
@@ -157,6 +157,13 @@ aside {
     color: #2196F3;
   }
 }
+.gradient {
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(circle, rgba(0,0,0,0.75), rgba(0,0,0,0.35), rgba(0,0,0,0.05)); /* Safari */
+  background: -o-radial-gradient(circle, rgba(0,0,0,0.75), rgba(0,0,0,0.35), rgba(0,0,0,0.05)); /* Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(circle, rgba(0,0,0,0.75), rgba(0,0,0,0.35), rgba(0,0,0,0.05)); /* Firefox 3.6 to 15 */
+  background: radial-gradient(circle, rgba(0,0,0,0.75), rgba(0,0,0,0.35), rgba(0,0,0,0.05)); /* Standard syntax */
+}
 header {
   position: relative;
   width: 100%;
@@ -177,14 +184,24 @@ header img {
   max-height: 100%;
 }
 header .header-content {
+  position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  position: absolute;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   text-align: center;
-  padding: 100px 15px 100px;
   width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  /*background-color: rgba(0, 0, 0, 0.3);*/
+}
+header .header-content .header-content-inner {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: relative;
+  /*padding: 50px 50px;*/
 }
 header .header-content .header-content-inner h1 {
   font-weight: 700;
@@ -231,10 +248,11 @@ header .header-content .header-content-inner p {
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    padding: 0 50px;
   }
   header .header-content .header-content-inner {
-    max-width: 1000px;
+    /*top: 50%;*/
+    position: relative;
+    vertical-align: middle;
     margin-left: auto;
     margin-right: auto;
   }
@@ -252,16 +270,32 @@ header .header-content .header-content-inner p {
   margin-top: 0;
 }
 .service-box {
-  max-width: 350px;
+  max-width: 100%;
+  height: 306px;
   margin: 50px auto 0;
+}
+.service-box img {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: 206px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  float: center;
+  overflow-x: hidden;
 }
 @media (min-width: 992px) {
   .service-box {
     margin: 20px auto 0;
   }
 }
+.service-box h3 {
+  color: black;
+}
 .service-box p {
-  margin-bottom: 0;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 .portfolio-box {
   position: relative;
@@ -437,10 +471,17 @@ fieldset[disabled] .btn-primary.active {
   color: white;
   background-color: #2196F3;
 }
-/*.btn-appliance:hover {
-  background-color: #EEEEEE;
+.btn-appliance {
+  margin: 10px auto;
+}
+.btn-appliance:hover {
+  background-color: white;
   border-radius: 5px;
-}*/
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
+}
+.btn-appliance a:hover {
+  text-decoration: none;
+}
 ::-moz-selection {
   color: white;
   text-shadow: none;

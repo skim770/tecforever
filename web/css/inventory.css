@@ -200,7 +200,7 @@ h5.sidebar-title {
 .item-img {
 	display: flex;
 	justify-content: center;
-	width: auto;
+	/*width: auto;*/
 	height: 200px;
 	margin-left: auto;
 	margin-right: auto;

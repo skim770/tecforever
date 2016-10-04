@@ -1,3 +1,8 @@
+document.getElementById('contact').addEventListener('click', function() {
+    var map = window.open("https://goo.gl/maps/7gPVLFvi2A12", '_blank');
+    map.focus();
+});
+
 (function($) {
     "use strict"; // Start of use strict
 
