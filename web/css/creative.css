@@ -39,6 +39,9 @@ p {
   line-height: 1.5;
   margin-bottom: 20px;
 }
+.none {
+  display: none !important;
+}
 .bg-primary {
   background-color: #2196F3;
 }
@@ -71,6 +74,42 @@ aside {
 }
 .no-padding {
   padding: 0;
+}
+#terms-popup,
+#terms-popup-wrapper,
+#terms-popup-background {
+  transition: all 0.3s;
+}
+.overlay-popup {
+  background-color: white;
+  margin: 50px;
+  padding: 20px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+.overlay-popup h3 {
+  padding-bottom: 15px;
+}
+.overlay-popup p {
+  margin-bottom: 12px;
+}
+@media (min-width: 1200px) {
+  .overlay-popup {
+    max-width: 868px;
+  }
+}
+@media (max-width: 480px) {
+  .overlay-popup {
+    margin: 10px;
+  }
+}
+.overlay-bg {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  color: rgba(255, 255, 255, 0.5);
 }
 .navbar-default {
   background-color: white;
@@ -525,4 +564,10 @@ body {
 
 footer {
   padding-top: 50px;
+}
+.terms-of-use {
+  color: rgb(150, 150, 150);
+}
+.terms-of-use:hover {
+  text-decoration: none;
 }
