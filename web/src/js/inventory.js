@@ -13,6 +13,7 @@ function getQueryVariables(variable) {
 			return pair[1];
 		}
 	}
+	return "ref";
 }
 
 /*
