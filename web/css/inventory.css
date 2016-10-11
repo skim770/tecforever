@@ -40,6 +40,7 @@ body {
   border-width: 0px;
 }
 #wrapper {
+	width: 100%;
   padding-left: 0;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -180,7 +181,7 @@ h5.sidebar-title {
 	border-radius: 2px;
 }
 
-#content-container {
+.content-container {
 	top: 100px;
 	width: 100%;
 }
@@ -302,12 +303,12 @@ h5.sidebar-title {
 #Description {
 	padding-bottom: 10px;
 }
-#Labels {
+.data-labels {
 	font-weight: bold;
 	font-size: 16px;
 	color: rgba(0, 0, 0, 0.65);
 }
-#ItemInfo {
+.data-info {
 	font-size: 20px;
 }
 #Prices {
@@ -384,6 +385,7 @@ h5.sidebar-title {
 
 @media(min-width:768px) {
   #wrapper {
+  	width: 100%;
     padding-left: 250px;
   }
   #wrapper.toggled {
@@ -426,6 +428,10 @@ h5.sidebar-title {
 }
 .new_inventory_item table {
   min-height: 50px;
+}
+
+@media (max-width: 880px) {
+
 }
 
 @media (max-width: 480px) {
@@ -486,6 +492,7 @@ h5.sidebar-title {
 		max-width: 100% !important;
 	}
 	#page-content-wrapper {
+		width: 100%;
 		max-width: 100% !important;
 	}
 	.sort-by-label {

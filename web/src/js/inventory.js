@@ -1,7 +1,6 @@
-var init_load = true;
 fetchFirebaseData('datePosted', 'descend');
 
-var categories = {ref:[], wd:[], dw:[], cooking:[], av:[], tv:[]};
+var categories = {ref: [], wd: [], dw: [], cooking: [], av: [], tv: []};
 var currentCategory = getQueryVariables("category");
 
 function getQueryVariables(variable) {
@@ -14,6 +13,11 @@ function getQueryVariables(variable) {
 		}
 	}
 	return "ref";
+}
+
+if ($(window).width() < 480) {
+	$("#DataTable").addClass("none");
+	$("#DataTable-880").removeClass("none");
 }
 
 /*
@@ -61,7 +65,7 @@ function sortItems(sender) {
 }
 
 function fetchFirebaseData(orderAttr, order) {
-	categories = {ref:[], wd:[], dw:[], cooking:[], av:[], tv:[]};
+	categories = {ref: [], wd: [], dw: [], cooking: [], av: [], tv: []};
 
 	inStockRef.orderByChild(orderAttr).once('value').then(function(snapshot) {
 		snapshot.forEach(function(item) {
@@ -194,24 +198,24 @@ var Item = React.createClass({
 		} else {
 			$('#Description').text("");
 		}
-		$('#Manufacturer').text(data.manufacturer);
-		$('#Model').text(data.model);
-		$('#Serial').text(data.serial);
+		$('.Manufacturer').text(data.manufacturer);
+		$('.Model').text(data.model);
+		$('.Serial').text(data.serial);
 		if (data.warranty != null) {
-			$('#LabelWarranty').removeClass("none");
-			$('#Warranty').removeClass("none");
-			$('#Warranty').text(data.warranty);
+			$('.LabelWarranty').removeClass("none");
+			$('.Warranty').removeClass("none");
+			$('.Warranty').text(data.warranty);
 		} else {
-			$('#LabelWarranty').addClass("none");
-			$('#Warranty').addClass("none");
+			$('.LabelWarranty').addClass("none");
+			$('.Warranty').addClass("none");
 		}
 		if (data.condition != null) {
-			$('#LabelCondition').removeClass("none");
-			$('#Condition').removeClass("none");
-			$('#Condition').text(data.condition);
+			$('.LabelCondition').removeClass("none");
+			$('.Condition').removeClass("none");
+			$('.Condition').text(data.condition);
 		} else {
-			$('#LabelCondition').addClass("none");
-			$('#Condition').addClass("none");
+			$('.LabelCondition').addClass("none");
+			$('.Condition').addClass("none");
 		}
 		$('#OurPrice').text("$" + data.retailCost.toFixed(2));
 		$('#OriginalPrice').text("$" + data.origMarketCost.toFixed(2));

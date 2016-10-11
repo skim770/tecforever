@@ -84,20 +84,32 @@
         </div>
         <div>
           <table id="DataTable" width="100%">
-            <tr id="Labels">
+            <tr class="data-labels">
               <td>MANUFACTURER</td>
               <td>MODEL</td>
               <td>SERIAL</td>
-              <td id="LabelWarranty">WARRANTY</td>
-              <td id="LabelCondition">CONDITION</td>
+              <td class="LabelWarranty">WARRANTY</td>
+              <td class="LabelCondition">CONDITION</td>
             </tr>
-            <tr id="ItemInfo">
-              <td id="Manufacturer"></td>
-              <td id="Model"></td>
-              <td id="Serial"></td>
-              <td id="Warranty"></td>
-              <td id="Condition"></td>
+            <tr class="data-info">
+              <td class="Manufacturer"></td>
+              <td class="Model"></td>
+              <td class="Serial"></td>
+              <td class="Warranty"></td>
+              <td class="Condition"></td>
             </tr>
+          </table>
+          <table id="DataTable-880" class="none" width="100%">
+            <tr><td class="data-labels">MANUFACTURER</td>
+              <td class="data-info Manufacturer"></td></tr>
+            <tr><td class="data-labels">MODEL</td>
+              <td class="data-info Model"></td></tr>
+            <tr><td class="data-labels">SERIAL</td>
+              <td class="data-info Serial"></td></tr>
+            <tr><td class="data-labels LabelWarranty">WARRANTY</td>
+              <td class="data-info Warranty"></td></tr>
+            <tr><td class="data-labels LabelCondition">CONDITION</td>
+              <td class="data-info Condition"></td></tr>
           </table>
         </div>
         <div id="Prices">
