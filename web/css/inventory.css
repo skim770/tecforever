@@ -270,6 +270,7 @@ h5.sidebar-title {
 }
 .overlay-popup {
 	background-color: white;
+	max-width: 100%;
 	margin: 50px;
 	padding: 20px;
 	border-radius: 4px;
@@ -459,6 +460,9 @@ h5.sidebar-title {
 	  -moz-transition: all 0.5s ease;
 	  -o-transition: all 0.5s ease;
 	  transition: all 0.5s ease;
+	}
+	.navbar-toggle:hover {
+		background-color: white !important;
 	}
 	#mobileNavCat {
 		float: left;
