@@ -15,6 +15,9 @@ function getQueryVariables(variable) {
 	return "ref";
 }
 
+/*
+ * Setup for mobile screens
+ */
 if ($(window).width() < 480) {
 	$(".collapse").collapse('hide');
 	$("#sidebar-wrapper").addClass("none");
